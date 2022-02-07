@@ -132,6 +132,21 @@ public class LinkedList {
         return length;
     }
     
+    public int getPosition(int data) {
+        ListNode temp = head;
+        int pos = 1;
+        while(temp != null) {
+            if(temp.getData() == data) {
+                return pos;
+            }
+            
+            pos++;
+            temp = temp.getNext();
+        }
+        
+        return -1;
+    }
+    
     public String toString() {
         String result = "[";
         if(head == null) {
@@ -189,6 +204,12 @@ public class LinkedList {
         ll.delete(5);
         System.out.println(ll.toString());
         System.out.println(ll.getLength());
+        
+        int ele = 16;
+        int found = ll.getPosition(ele);
+        if(found != -1) System.out.println("Element " + ele + " found at position " + found);
+        
+        else System.out.println("Element " + ele + " not found");
 
 
     }
