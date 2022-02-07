@@ -112,7 +112,7 @@ public class LinkedList {
             temp = null;
         } 
         else {
-            for(int i = 1; i < position-1; i++) {
+            for(int i = 2; i <= position-1; i++) {
                 temp = temp.getNext();
             }
             
