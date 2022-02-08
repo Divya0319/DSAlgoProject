@@ -1,7 +1,7 @@
 public class DoublyLinkedList {
     
     private DLLNode head;
-    public int length;
+    private int length;
 
     static class DLLNode {
         private int data;
@@ -95,6 +95,105 @@ public class DoublyLinkedList {
         
     }
     
+    public void insertAtMiddle(int data, int position) {
+        if(position < 0) position = 1;
+        if(position > getLength()) position = length;
+        
+         DLLNode nNode = new DLLNode(data);
+         if(position == 1){ 
+            head = nNode;
+            nNode.next = null;
+            nNode.prev = null;
+            length++;
+
+            return;
+         }
+         
+         DLLNode temp = head;
+         
+         for(int i = 2; i <= position-1; i++) {
+             temp = temp.getNext();
+         }
+         
+         nNode.setPrev(temp);
+         nNode.setNext(temp.getNext());
+         temp.setNext(nNode);
+         length++;
+        
+    }
+    
+    public void deleteAtBegin(int data) {
+    DLLNode nNode = new DLLNode(data);
+            if(head == null) {
+                head = nNode;
+                nNode.next = null;
+                nNode.prev = null;
+                length++;
+
+                return;
+
+            }
+
+    DLLNode temp = head;
+    while(temp.getNext() != null) {
+        temp = temp.getNext();
+    }
+    
+    temp.setNext(nNode);
+    nNode.setPrev(temp);
+    nNode.setNext(null);
+    length++;
+        
+    }
+    
+    public void deleteAtEnd(int data) {
+    DLLNode nNode = new DLLNode(data);
+            if(head == null) {
+                head = nNode;
+                nNode.next = null;
+                nNode.prev = null;
+                length++;
+
+                return;
+
+            }
+
+    DLLNode temp = head;
+    while(temp.getNext() != null) {
+        temp = temp.getNext();
+    }
+    
+    temp.setNext(nNode);
+    nNode.setPrev(temp);
+    nNode.setNext(null);
+    length++;
+        
+    }
+    
+    public void deleteAtMiddle(int data, int position) {
+    DLLNode nNode = new DLLNode(data);
+            if(head == null) {
+                head = nNode;
+                nNode.next = null;
+                nNode.prev = null;
+                length++;
+
+                return;
+
+            }
+
+    DLLNode temp = head;
+    while(temp.getNext() != null) {
+        temp = temp.getNext();
+    }
+    
+    temp.setNext(nNode);
+    nNode.setPrev(temp);
+    nNode.setNext(null);
+    length++;
+        
+    }
+    
     public String toString() {
         String result = "[";
         if(head == null) {
@@ -123,6 +222,10 @@ public class DoublyLinkedList {
         list.insertAtEnd(23);
         System.out.println(list.toString());
         System.out.println(list.getLength());
+        list.insertAtMiddle(6, 3);
+        System.out.println(list.toString());
+        System.out.println(list.getLength());
+
 
       
     }
