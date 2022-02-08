@@ -122,27 +122,21 @@ public class DoublyLinkedList {
         
     }
     
-    public void deleteAtBegin(int data) {
-    DLLNode nNode = new DLLNode(data);
+    public void deleteAtBegin() {
             if(head == null) {
-                head = nNode;
-                nNode.next = null;
-                nNode.prev = null;
-                length++;
-
+                System.out.println("List is empty");
                 return;
 
             }
 
-    DLLNode temp = head;
-    while(temp.getNext() != null) {
-        temp = temp.getNext();
-    }
+    DLLNode deleted = head;
+    head = head.getNext();
+
+    deleted.getNext().setPrev(null);
     
-    temp.setNext(nNode);
-    nNode.setPrev(temp);
-    nNode.setNext(null);
-    length++;
+    deleted.setNext(null);
+    
+    length--;
         
     }
     
@@ -225,7 +219,9 @@ public class DoublyLinkedList {
         list.insertAtMiddle(6, 3);
         System.out.println(list.toString());
         System.out.println(list.getLength());
-
+        list.deleteAtBegin();
+        System.out.println(list.toString());
+        System.out.println(list.getLength());
 
       
     }
