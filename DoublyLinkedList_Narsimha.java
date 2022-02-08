@@ -140,27 +140,17 @@ public class DoublyLinkedList {
         
     }
     
-    public void deleteAtEnd(int data) {
-    DLLNode nNode = new DLLNode(data);
-            if(head == null) {
-                head = nNode;
-                nNode.next = null;
-                nNode.prev = null;
-                length++;
-
-                return;
-
-            }
-
+    public void deleteAtEnd() {
     DLLNode temp = head;
-    while(temp.getNext() != null) {
+     while(temp.getNext().getNext() != null) {
         temp = temp.getNext();
-    }
+     }
+
+    temp.getNext().setPrev(null);
+    temp.setNext(null);
     
-    temp.setNext(nNode);
-    nNode.setPrev(temp);
-    nNode.setNext(null);
-    length++;
+    length--;
+    
         
     }
     
@@ -222,6 +212,10 @@ public class DoublyLinkedList {
         list.deleteAtBegin();
         System.out.println(list.toString());
         System.out.println(list.getLength());
+        list.deleteAtEnd();
+        System.out.println(list.toString());
+        System.out.println(list.getLength());
+
 
       
     }
