@@ -30,7 +30,7 @@ public class DoublyLinkedList {
         }
         
         public DLLNode getPrev() {
-            return rpev;
+            return prev;
         }
         
         public void setPrev(DLLNode prev) {
