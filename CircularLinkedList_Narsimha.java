@@ -102,6 +102,24 @@ public class LinkedList {
         
     }
     
+    public void length() {
+        CLLNode temp = head;
+        int length = 0;
+        if(temp == null)  
+        {
+        System.out.println("Length: 0");
+        return;
+        }
+
+        while(temp.next != head) {
+            length++;
+            temp = temp.next;
+        }
+        length++;
+        
+        System.out.println("Length: " + length);
+    }
+    
     public  void displayList() {
         CLLNode currNode = head;
         
@@ -131,6 +149,8 @@ public class LinkedList {
         list.displayList();
         list.addNodeAtEnd(90);
         list.displayList();
+        list.length();
+
         
         list.addNodeAtBegin(21);
         list.displayList();
@@ -144,6 +164,8 @@ public class LinkedList {
         list.displayList();
         list.deleteNodeAtEnd();
         list.displayList();
+        list.length();
+
         
         list.deleteNodeAtBegin();
         list.displayList();
@@ -153,8 +175,10 @@ public class LinkedList {
         list.displayList();
         list.deleteNodeAtBegin();
         list.displayList();
+        list.length();
 
       
     }
     
 }
+
