@@ -128,6 +128,33 @@ public class LinkedList {
         }    
     }
     
+    public ListNode reverseInPair() {
+        ListNode temp = head;
+        while(temp != null && temp.next != null) {
+            int k = temp.data;
+            temp.data = temp.next.data;
+            temp.next.data = k;
+            
+            temp = temp.next.next;
+        }
+        
+        return head;
+        
+    }
+     
+    public ListNode findMiddle() {
+        ListNode ptr1, ptr2;
+        ptr1 = ptr2 = head;
+        int i = 0;
+        while(ptr1 != null && ptr1.next != null) {
+        ptr1 = ptr1.next.next;
+        ptr2 = ptr2.next;
+        }
+        
+        return ptr2;
+        
+    }
+    
     public int getLength() {
         return length;
     }
@@ -148,6 +175,21 @@ public class LinkedList {
     }
     
     public String toString() {
+        String result = "[";
+        if(head == null) {
+            return result + "]";
+        }
+        result = result + head.getData();
+        ListNode temp = head.getNext();
+        while(temp != null) {
+           result = result + ", " + temp.getData();
+           temp = temp.getNext();
+        }
+        
+        return result + "]";
+    }
+    
+    public String toString(ListNode head) {
         String result = "[";
         if(head == null) {
             return result + "]";
@@ -188,28 +230,33 @@ public class LinkedList {
         ListNode ln8 = new ListNode(7565);
         ll.insertAtBegin(ln8);
         System.out.println(ll.toString());
-        ListNode ln9 = new ListNode(123);
-        ll.insertAtEnd(ln9);
-        System.out.println(ll.toString());
-        ListNode ln10 = new ListNode(16);
-        ll.insert(ln10, 4);
-        System.out.println(ll.toString());
-        System.out.println(ll.getLength());
-        ll.deleteAtBegin();
-        System.out.println(ll.toString());
-        System.out.println(ll.getLength());
-        ll.deleteAtEnd();
-        System.out.println(ll.toString());
-        System.out.println(ll.getLength());
-        ll.delete(5);
-        System.out.println(ll.toString());
-        System.out.println(ll.getLength());
+        // ListNode ln9 = new ListNode(123);
+        // ll.insertAtEnd(ln9);
+        // System.out.println(ll.toString());
+        ListNode middle = ll.findMiddle();
+        System.out.println(middle.data);
+        // ListNode newHead = ll.reverseInPair();
+        // System.out.println(ll.toString(newHead));
+
+        // ListNode ln10 = new ListNode(16);
+        // ll.insert(ln10, 4);
+        // System.out.println(ll.toString());
+        // System.out.println(ll.getLength());
+        // ll.deleteAtBegin();
+        // System.out.println(ll.toString());
+        // System.out.println(ll.getLength());
+        // ll.deleteAtEnd();
+        // System.out.println(ll.toString());
+        // System.out.println(ll.getLength());
+        // ll.delete(5);
+        // System.out.println(ll.toString());
+        // System.out.println(ll.getLength());
         
-        int ele = 16;
-        int found = ll.getPosition(ele);
-        if(found != -1) System.out.println("Element " + ele + " found at position " + found);
+        // int ele = 16;
+        // int found = ll.getPosition(ele);
+        // if(found != -1) System.out.println("Element " + ele + " found at position " + found);
         
-        else System.out.println("Element " + ele + " not found");
+        // else System.out.println("Element " + ele + " not found");
 
 
     }
