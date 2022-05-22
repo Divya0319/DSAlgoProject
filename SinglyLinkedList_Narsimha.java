@@ -1,3 +1,5 @@
+package com.dsalgoproblems.javaproblems;
+
 public class LinkedList {
     public LinkedList() {
         length = 0;
@@ -145,7 +147,6 @@ public class LinkedList {
     public ListNode findMiddle() {
         ListNode ptr1, ptr2;
         ptr1 = ptr2 = head;
-        int i = 0;
         while(ptr1 != null && ptr1.next != null) {
         ptr1 = ptr1.next.next;
         ptr2 = ptr2.next;
@@ -153,6 +154,29 @@ public class LinkedList {
         
         return ptr2;
         
+    }
+    
+    public ListNode insertionSortList() {
+    	ListNode dummy = new ListNode(-1);
+    	ListNode curr = head;
+    	while(curr != null) {
+    		ListNode temp = curr.next;
+    		ListNode prev = dummy;
+    		ListNode nxt = dummy.next;
+    		while(nxt != null) {
+    			if(nxt.data > curr.data) 
+    				break;
+    			prev = nxt;
+    			nxt = nxt.next;
+    			
+    		}
+    		
+    		curr.next = nxt;
+			prev.next = curr;
+			
+			curr = temp;
+    	}
+    	return dummy.next;
     }
     
     public int getLength() {
@@ -172,6 +196,61 @@ public class LinkedList {
         }
         
         return -1;
+    }
+    
+    public ListNode modularNodes(int k) {
+    	ListNode modularNode = null;
+    	int i = 0;
+    	if(k <= 0) {
+    		return null;
+    	}
+    	
+    	for(;head != null; head = head.next) {
+    		if(i % k == 0) {
+    			modularNode = head;
+    		}
+    		i++;
+    	}
+    	
+    	return modularNode;
+    }
+    
+    public ListNode modularNodeReturns(int k) {
+    	ListNode modularNode = null;
+    	int i = 0;
+    	if(k <= 0) return null;
+    	for(i = 0; i <= k; i++) {
+    		if(head != null) {
+    			head = head.next;
+    		}
+    		else return null;
+    	}
+    	
+    	while(head != null) {
+    		modularNode = modularNode.next;
+    		head = head.next;
+    	}
+    	
+    	return modularNode;
+    }
+    
+    public ListNode nkthNode(int k) {
+    	if(k <= 0) return null;
+    	if(head == null) return null;
+    	
+    	ListNode sp = null;
+    	int i = 0;
+    	for(;head != null; head = head.next) {
+    		if(i % k == 0) {
+    		if(sp == null) 
+    			sp = head;
+    		else 
+    			sp = sp.next;
+    		}
+    		i++;
+    	}
+    	
+    	return sp;
     }
     
     public String toString() {
@@ -204,6 +283,64 @@ public class LinkedList {
         return result + "]";
     }
     
+    public ListNode rotateList(int k) {
+    	if(k < 1) return head;
+    	
+    	ListNode current = head;
+    	ListNode kthNode = null;
+    	for(int i = 1; i < k && current != null; i++) {
+    		current = current.getNext();
+    	}
+    	
+    	if(current == null) return null;
+    	
+    	kthNode = current;
+    	while(current.getNext() != null) {
+    		current = current.getNext();
+    	}
+    	
+    	current.setNext(head);
+    	head = kthNode.getNext();
+    	kthNode.setNext(null);
+    	
+    	return head;
+    }
+    
+    public ListNode reverseKNodes(int k) {
+    	if(head == null || k == 1) return head;
+    	ListNode dummy = new ListNode(0);
+    	dummy.setNext(head);
+    	ListNode curr = dummy, nex = dummy, pre = dummy;
+    	int count = 0;
+    	while(curr.getNext() != null) {
+    		curr = curr.getNext();
+    		count++;
+    	}
+    	
+    	while(count >= k) {
+    		curr = pre.getNext();
+    		nex = curr.getNext();
+    		
+    		for(int i = 1; i < k; i++) {
+    			curr.setNext(nex.getNext());
+    			nex.setNext(pre.getNext());
+    			pre.setNext(nex);
+    			nex = curr.getNext();
+    		}
+    		
+    		pre = curr;
+    		count -= k;
+    	}
+    	
+    	return dummy.getNext();
+    }
+    
+    /**
+     * @param args
+     */
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ListNode ln1 = new ListNode(56);
@@ -230,11 +367,26 @@ public class LinkedList {
         ListNode ln8 = new ListNode(7565);
         ll.insertAtBegin(ln8);
         System.out.println(ll.toString());
+        
+        ListNode reverseKList = ll.reverseKNodes(2);
+        System.out.println(ll.toString(reverseKList));
+        
+        ListNode rotatedList = ll.rotateList(1);
+        System.out.println(ll.toString(rotatedList));
+       
+        ListNode sortedList = ll.insertionSortList();
+        System.out.println(ll.toString(sortedList));
+        
         // ListNode ln9 = new ListNode(123);
         // ll.insertAtEnd(ln9);
         // System.out.println(ll.toString());
         ListNode middle = ll.findMiddle();
         System.out.println(middle.data);
+        
+        
+        ListNode nkthNode = ll.nkthNode(2);
+        System.out.println(nkthNode.data);
+        
         // ListNode newHead = ll.reverseInPair();
         // System.out.println(ll.toString(newHead));
 
