@@ -1,5 +1,7 @@
 package com.dsalgoproblems.javaproblems;
 
+import java.util.Stack;
+
 public class LinkedList {
     public LinkedList() {
         length = 0;
@@ -142,6 +144,38 @@ public class LinkedList {
         
         return head;
         
+    }
+    
+    public ListNode reorderList() {
+    	if(head == null) return null;
+    	ListNode slowPtr = head;
+    	ListNode origHead = head;
+    	ListNode fastPtr = head.getNext();
+    	while(fastPtr != null && fastPtr.getNext() != null) {
+    		fastPtr = fastPtr.getNext().getNext();
+    		slowPtr = slowPtr.getNext();
+    	}
+    	
+    	ListNode head2 = slowPtr.getNext();
+    	slowPtr.setNext(null);
+    	Stack<ListNode> stack = new Stack<>();
+    	while(head2 != null) {
+    		ListNode temp = head2;
+    		head2 = head2.getNext();
+    		temp.setNext(null);
+    		stack.push(temp);
+    	}
+    	
+    	while(!stack.isEmpty()) {
+    		ListNode temp = stack.pop();
+    		temp.setNext(head.getNext());
+    		head.setNext(temp);
+    		if(temp.getNext() != null)
+    		head = temp.getNext();
+    	}
+    	
+    	return origHead;
+    	
     }
      
     public ListNode findMiddle() {
@@ -368,31 +402,23 @@ public class LinkedList {
         ll.insertAtBegin(ln8);
         System.out.println(ll.toString());
         
-        ListNode reverseKList = ll.reverseKNodes(2);
-        System.out.println(ll.toString(reverseKList));
-        
-        ListNode rotatedList = ll.rotateList(1);
-        System.out.println(ll.toString(rotatedList));
-       
-        ListNode sortedList = ll.insertionSortList();
-        System.out.println(ll.toString(sortedList));
+//        ListNode reverseKList = ll.reverseKNodes(2);
+//        System.out.println(ll.toString(reverseKList));
+//        
+//        ListNode rotatedList = ll.rotateList(1);
+//        System.out.println(ll.toString(rotatedList));
+//       
+//        ListNode sortedList = ll.insertionSortList();
+//        System.out.println(ll.toString(sortedList));
         
         // ListNode ln9 = new ListNode(123);
         // ll.insertAtEnd(ln9);
         // System.out.println(ll.toString());
-        ListNode middle = ll.findMiddle();
-        System.out.println(middle.data);
-        
-        
-        ListNode nkthNode = ll.nkthNode(2);
-        System.out.println(nkthNode.data);
         
         // ListNode newHead = ll.reverseInPair();
         // System.out.println(ll.toString(newHead));
 
-        // ListNode ln10 = new ListNode(16);
-        // ll.insert(ln10, 4);
-        // System.out.println(ll.toString());
+        
         // System.out.println(ll.getLength());
         // ll.deleteAtBegin();
         // System.out.println(ll.toString());
@@ -409,6 +435,20 @@ public class LinkedList {
         // if(found != -1) System.out.println("Element " + ele + " found at position " + found);
         
         // else System.out.println("Element " + ele + " not found");
+        
+//        ListNode middle = ll.findMiddle();
+//        System.out.println(middle.data);
+//        
+//        
+//        ListNode nkthNode = ll.nkthNode(2);
+//        System.out.println(nkthNode.data);
+        
+        ListNode ln10 = new ListNode(16);
+        ll.insert(ln10, 4);
+        System.out.println(ll.toString());
+        
+        ListNode reorderedList = ll.reorderList();
+        System.out.println(ll.toString(reorderedList));
 
 
     }
