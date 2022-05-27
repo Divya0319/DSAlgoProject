@@ -177,6 +177,40 @@ public class LinkedList {
     	return origHead;
     	
     }
+    
+    public ListNode reorderlistOptimised() {
+    	if(head == null || head.getNext() == null) return head;
+    	ListNode slow = head, fast = head;
+    	ListNode origHead = head;
+    	
+    	while(fast != null && fast.getNext() != null) {
+    		fast = fast.getNext().getNext();
+    		slow = slow.getNext();
+    	}
+    	
+    	ListNode prev = null, curr = slow, tmp;
+    	
+    	while(curr != null) {
+    		tmp = curr.getNext();
+    		curr.setNext(prev);
+    		prev = curr;
+    		curr = tmp;
+    	}
+    	
+    	ListNode n1 = head, n2 = prev;
+    	
+    	while(n2.getNext() != null) {
+    		tmp = n1.getNext();
+    		n1.setNext(n2);
+    		n1 = tmp;
+    		
+    		tmp = n2.getNext();
+    		n2.setNext(n1);
+    		n2 = tmp;
+    	}
+    	
+    	return origHead;
+    }
      
     public ListNode findMiddle() {
         ListNode ptr1, ptr2;
@@ -447,7 +481,7 @@ public class LinkedList {
         ll.insert(ln10, 4);
         System.out.println(ll.toString());
         
-        ListNode reorderedList = ll.reorderList();
+        ListNode reorderedList = ll.reorderlistOptimised();
         System.out.println(ll.toString(reorderedList));
 
 
