@@ -352,26 +352,29 @@ public class LinkedList {
     }
     
     public ListNode rotateList(int k) {
-    	if(k < 1) return head;
+    	if(head == null || k < 1) return head;
     	
-    	ListNode current = head;
-    	ListNode kthNode = null;
-    	for(int i = 1; i < k && current != null; i++) {
-    		current = current.getNext();
+    	ListNode temp = head;
+    	int n = 0;
+    	while(temp.next != null) {
+    		temp = temp.next;
+    		n++;
     	}
     	
-    	if(current == null) return null;
+    	temp.next = head;
     	
-    	kthNode = current;
-    	while(current.getNext() != null) {
-    		current = current.getNext();
+    	k = k % (n+1);
+    	
+    	int j = n-k;
+    	temp = head;
+    	while(j > 0) {
+    		temp = temp.next;
+    		j--;
     	}
     	
-    	current.setNext(head);
-    	head = kthNode.getNext();
-    	kthNode.setNext(null);
-    	
-    	return head;
+    	ListNode newHead = temp.next;
+    	temp.next = null;
+    	return newHead;
     }
     
     public ListNode reverseKNodes(int k) {
@@ -411,36 +414,39 @@ public class LinkedList {
      */
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
-        ListNode ln1 = new ListNode(56);
+        ListNode ln1 = new ListNode(8);
         ll.insertAtBegin(ln1);
         System.out.println(ll.toString());
-        ListNode ln2 = new ListNode(92);
-        ll.insertAtBegin(ln2);
+        ListNode ln2 = new ListNode(6);
+        ll.insertAtEnd(ln2);
         System.out.println(ll.toString());
-        ListNode ln3 = new ListNode(9);
-        ll.insertAtBegin(ln3);
+        ListNode ln3 = new ListNode(2);
+        ll.insertAtEnd(ln3);
         System.out.println(ll.toString());
-        ListNode ln4 = new ListNode(2);
-        ll.insertAtBegin(ln4);
+        ListNode ln4 = new ListNode(3);
+        ll.insertAtEnd(ln4);
         System.out.println(ll.toString());
-        ListNode ln5 = new ListNode(3);
-        ll.insertAtBegin(ln5);
+        ListNode ln5 = new ListNode(4);
+        ll.insertAtEnd(ln5);
         System.out.println(ll.toString());
-        ListNode ln6 = new ListNode(23);
-        ll.insertAtBegin(ln6);
+        ListNode ln6 = new ListNode(5);
+        ll.insertAtEnd(ln6);
         System.out.println(ll.toString());
-        ListNode ln7 = new ListNode(5);
-        ll.insertAtBegin(ln7);
+        ListNode ln7 = new ListNode(9);
+        ll.insertAtEnd(ln7);
         System.out.println(ll.toString());
-        ListNode ln8 = new ListNode(7565);
-        ll.insertAtBegin(ln8);
+        ListNode ln8 = new ListNode(1);
+        ll.insertAtEnd(ln8);
+        System.out.println(ll.toString());
+        ListNode ln9 = new ListNode(7);
+        ll.insertAtEnd(ln9);
         System.out.println(ll.toString());
         
 //        ListNode reverseKList = ll.reverseKNodes(2);
 //        System.out.println(ll.toString(reverseKList));
 //        
-//        ListNode rotatedList = ll.rotateList(1);
-//        System.out.println(ll.toString(rotatedList));
+        ListNode rotatedList = ll.rotateList(7);
+        System.out.println(ll.toString(rotatedList));
 //       
 //        ListNode sortedList = ll.insertionSortList();
 //        System.out.println(ll.toString(sortedList));
@@ -477,12 +483,12 @@ public class LinkedList {
 //        ListNode nkthNode = ll.nkthNode(2);
 //        System.out.println(nkthNode.data);
         
-        ListNode ln10 = new ListNode(16);
-        ll.insert(ln10, 4);
-        System.out.println(ll.toString());
-        
-        ListNode reorderedList = ll.reorderlistOptimised();
-        System.out.println(ll.toString(reorderedList));
+//        ListNode ln10 = new ListNode(16);
+//        ll.insert(ln10, 4);
+//        System.out.println(ll.toString());
+//        
+//        ListNode reorderedList = ll.reorderlistOptimised();
+//        System.out.println(ll.toString(reorderedList));
 
 
     }
