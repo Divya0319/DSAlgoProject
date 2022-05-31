@@ -377,6 +377,38 @@ public class LinkedList {
     	return newHead;
     }
     
+    public ListNode rotateListLeft(int k) {
+    	if(k < 1 || head == null) return head;
+    	ListNode curr = head;
+    	
+    	int n = 1;
+    	while(curr != null) {
+    		curr = curr.next;
+    		n++;
+    	}
+    	k = k % n;
+    	
+    	int count = 1;
+    	curr = head;
+    	while(count < k && curr != null) {
+    		curr = curr.next;
+    		count++;
+    	}
+    	
+    	ListNode kthNode = curr;
+    	
+    	while(curr.next != null) {
+    		curr = curr.next;
+    	}
+    	
+    	curr.next = head;
+    	head = kthNode.next;
+    	kthNode.next = null;
+    	
+    	return head;
+    	
+    }
+    
     public ListNode reverseKNodes(int k) {
     	if(head == null || k == 1) return head;
     	ListNode dummy = new ListNode(0);
@@ -405,6 +437,7 @@ public class LinkedList {
     	
     	return dummy.getNext();
     }
+    
     
     /**
      * @param args
@@ -445,7 +478,7 @@ public class LinkedList {
 //        ListNode reverseKList = ll.reverseKNodes(2);
 //        System.out.println(ll.toString(reverseKList));
 //        
-        ListNode rotatedList = ll.rotateList(7);
+        ListNode rotatedList = ll.rotateListLeft(7);
         System.out.println(ll.toString(rotatedList));
 //       
 //        ListNode sortedList = ll.insertionSortList();
