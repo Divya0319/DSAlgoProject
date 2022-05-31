@@ -381,7 +381,7 @@ public class LinkedList {
     	if(k < 1 || head == null) return head;
     	ListNode curr = head;
     	
-    	int n = 1;
+    	int n = 0;
     	while(curr != null) {
     		curr = curr.next;
     		n++;
