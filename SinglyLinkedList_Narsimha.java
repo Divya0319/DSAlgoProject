@@ -211,6 +211,32 @@ public class LinkedList {
     	
     	return origHead;
     }
+    
+    public ListNode addTwoLists(ListNode l1, ListNode l2) {
+    	ListNode dummy = new ListNode(-1);
+    	ListNode temp = dummy;
+    	int carry = 0;
+    	while(l1 != null || l2 != null || carry != 0) {
+    		int sum = 0;
+    		if(l1 != null) {
+    			sum += l1.data;
+    			l1 = l1.next;
+    		}
+    		
+    		if(l2 != null) {
+    			sum += l2.data;
+    			l2 = l2.next;
+    		}
+    		
+    		sum += carry;
+    		carry = sum / 10;
+    		ListNode node = new ListNode(sum % 10);
+    		temp.next = node;
+    		temp = node;
+    	}
+    	
+    	return dummy.next;
+    }
      
     public ListNode findMiddle() {
         ListNode ptr1, ptr2;
@@ -456,30 +482,27 @@ public class LinkedList {
         ListNode ln3 = new ListNode(2);
         ll.insertAtEnd(ln3);
         System.out.println(ll.toString());
-        ListNode ln4 = new ListNode(3);
-        ll.insertAtEnd(ln4);
-        System.out.println(ll.toString());
-        ListNode ln5 = new ListNode(4);
-        ll.insertAtEnd(ln5);
-        System.out.println(ll.toString());
-        ListNode ln6 = new ListNode(5);
-        ll.insertAtEnd(ln6);
-        System.out.println(ll.toString());
-        ListNode ln7 = new ListNode(9);
-        ll.insertAtEnd(ln7);
-        System.out.println(ll.toString());
-        ListNode ln8 = new ListNode(1);
-        ll.insertAtEnd(ln8);
-        System.out.println(ll.toString());
-        ListNode ln9 = new ListNode(7);
-        ll.insertAtEnd(ln9);
-        System.out.println(ll.toString());
+        
+        
+        LinkedList l2 = new LinkedList();
+        ListNode lnn1 = new ListNode(2);
+        l2.insertAtBegin(lnn1);
+        System.out.println(l2.toString());
+        ListNode lnn2 = new ListNode(6);
+        l2.insertAtEnd(lnn2);
+        System.out.println(l2.toString());
+        ListNode lnn3 = new ListNode(7);
+        l2.insertAtEnd(lnn3);
+        System.out.println(l2.toString());
+        
+        ListNode addedList = ll.addTwoLists(ll.head, l2.head);
+        System.out.println(ll.toString(addedList));
         
 //        ListNode reverseKList = ll.reverseKNodes(2);
 //        System.out.println(ll.toString(reverseKList));
 //        
-        ListNode rotatedList = ll.rotateListLeft(7);
-        System.out.println(ll.toString(rotatedList));
+//        ListNode rotatedList = ll.rotateList(19);
+//        System.out.println(ll.toString(rotatedList));
 //       
 //        ListNode sortedList = ll.insertionSortList();
 //        System.out.println(ll.toString(sortedList));
