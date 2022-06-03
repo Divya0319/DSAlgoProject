@@ -435,6 +435,29 @@ public class LinkedList {
     	
     }
     
+    public ListNode partitionListUsingK(int k) {
+    	ListNode left = new ListNode(0);
+    	ListNode right = new ListNode(0);
+    	ListNode l = left, r = right;
+    	
+    	while(head != null) {
+    		
+    		if(head.data < k) {
+    			l.next = head;
+    			l = l.next;
+    		}
+    		else {
+    			r.next = head;
+    			r = r.next;
+    		}
+    		head = head.next;
+    	}
+    	l.next = right.next;
+    	r.next = null;
+    	
+    	return left.next;
+    }
+    
     public ListNode reverseKNodes(int k) {
     	if(head == null || k == 1) return head;
     	ListNode dummy = new ListNode(0);
@@ -473,30 +496,39 @@ public class LinkedList {
      */
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
-        ListNode ln1 = new ListNode(8);
+        ListNode ln1 = new ListNode(1);
         ll.insertAtBegin(ln1);
         System.out.println(ll.toString());
-        ListNode ln2 = new ListNode(6);
+        ListNode ln2 = new ListNode(4);
         ll.insertAtEnd(ln2);
         System.out.println(ll.toString());
-        ListNode ln3 = new ListNode(2);
+        ListNode ln3 = new ListNode(3);
         ll.insertAtEnd(ln3);
+        System.out.println(ll.toString());
+        ListNode ln4 = new ListNode(2);
+        ll.insertAtEnd(ln4);
+        System.out.println(ll.toString());
+        ListNode ln5 = new ListNode(5);
+        ll.insertAtEnd(ln5);
+        System.out.println(ll.toString());
+        ListNode ln6 = new ListNode(2);
+        ll.insertAtEnd(ln6);
         System.out.println(ll.toString());
         
         
-        LinkedList l2 = new LinkedList();
-        ListNode lnn1 = new ListNode(2);
-        l2.insertAtBegin(lnn1);
-        System.out.println(l2.toString());
-        ListNode lnn2 = new ListNode(6);
-        l2.insertAtEnd(lnn2);
-        System.out.println(l2.toString());
-        ListNode lnn3 = new ListNode(7);
-        l2.insertAtEnd(lnn3);
-        System.out.println(l2.toString());
+//        LinkedList l2 = new LinkedList();
+//        ListNode lnn1 = new ListNode(6);
+//        l2.insertAtBegin(lnn1);
+//        System.out.println(l2.toString());
+//        ListNode lnn2 = new ListNode(5);
+//        l2.insertAtEnd(lnn2);
+//        System.out.println(l2.toString());
+//        ListNode lnn3 = new ListNode(4);
+//        l2.insertAtEnd(lnn3);
+//        System.out.println(l2.toString());
         
-        ListNode addedList = ll.addTwoLists(ll.head, l2.head);
-        System.out.println(ll.toString(addedList));
+        ListNode partitioned = ll.partitionListUsingK(3);
+        System.out.println(ll.toString(partitioned));
         
 //        ListNode reverseKList = ll.reverseKNodes(2);
 //        System.out.println(ll.toString(reverseKList));
