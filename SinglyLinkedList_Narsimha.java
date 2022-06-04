@@ -1,5 +1,7 @@
 package com.dsalgoproblems.javaproblems;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class LinkedList {
@@ -487,6 +489,27 @@ public class LinkedList {
     	return dummy.getNext();
     }
     
+    public ListNode removeDuplicates() {
+    	Map<Integer, Integer> map = new HashMap<>();
+    	if(head == null) return null;
+    	ListNode curr = head;
+    	ListNode prev = curr;
+    	map.put(curr.data, 1);
+    	curr = curr.next;
+    	while(curr != null) {
+    		if(map.containsKey(curr.data)) {
+    			prev.next = curr.next;
+    		} else {
+    			map.put(curr.data, 1);
+    			prev = curr;
+    		}
+    		
+    		curr = prev.next;
+    	}
+    	
+    	return head;
+    }
+    
     
     /**
      * @param args
@@ -496,22 +519,22 @@ public class LinkedList {
      */
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
-        ListNode ln1 = new ListNode(1);
+        ListNode ln1 = new ListNode(6);
         ll.insertAtBegin(ln1);
         System.out.println(ll.toString());
-        ListNode ln2 = new ListNode(4);
+        ListNode ln2 = new ListNode(3);
         ll.insertAtEnd(ln2);
         System.out.println(ll.toString());
-        ListNode ln3 = new ListNode(3);
+        ListNode ln3 = new ListNode(8);
         ll.insertAtEnd(ln3);
         System.out.println(ll.toString());
         ListNode ln4 = new ListNode(2);
         ll.insertAtEnd(ln4);
         System.out.println(ll.toString());
-        ListNode ln5 = new ListNode(5);
+        ListNode ln5 = new ListNode(2);
         ll.insertAtEnd(ln5);
         System.out.println(ll.toString());
-        ListNode ln6 = new ListNode(2);
+        ListNode ln6 = new ListNode(1);
         ll.insertAtEnd(ln6);
         System.out.println(ll.toString());
         
@@ -527,8 +550,8 @@ public class LinkedList {
 //        l2.insertAtEnd(lnn3);
 //        System.out.println(l2.toString());
         
-        ListNode partitioned = ll.partitionListUsingK(3);
-        System.out.println(ll.toString(partitioned));
+        ListNode noDupList = ll.removeDuplicates();
+        System.out.println(ll.toString(noDupList));
         
 //        ListNode reverseKList = ll.reverseKNodes(2);
 //        System.out.println(ll.toString(reverseKList));
