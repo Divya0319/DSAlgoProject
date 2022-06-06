@@ -510,6 +510,32 @@ public class LinkedList {
     	return head;
     }
     
+    public ListNode removeDupBruteForce() {
+    	ListNode curr = head;
+    	if(curr == null || curr.next == null) {
+    		return curr;
+    	}
+    	
+    	ListNode curr2;
+    	ListNode prev;
+    	while(curr != null) {
+    		curr2 = curr.next;
+    		prev = curr;
+    		while(curr2 != null) {
+    			if(curr.data == curr2.data) {
+    				prev.next = curr2.next;
+    			} 
+    			
+    			prev = curr2;
+    			curr2 = curr2.next;
+    		}
+    		
+    		curr = curr.next;
+    	}
+    	
+    	return head;
+    }
+    
     
     /**
      * @param args
@@ -522,10 +548,10 @@ public class LinkedList {
         ListNode ln1 = new ListNode(6);
         ll.insertAtBegin(ln1);
         System.out.println(ll.toString());
-        ListNode ln2 = new ListNode(3);
+        ListNode ln2 = new ListNode(6);
         ll.insertAtEnd(ln2);
         System.out.println(ll.toString());
-        ListNode ln3 = new ListNode(8);
+        ListNode ln3 = new ListNode(6);
         ll.insertAtEnd(ln3);
         System.out.println(ll.toString());
         ListNode ln4 = new ListNode(2);
@@ -550,7 +576,7 @@ public class LinkedList {
 //        l2.insertAtEnd(lnn3);
 //        System.out.println(l2.toString());
         
-        ListNode noDupList = ll.removeDuplicates();
+        ListNode noDupList = ll.removeDupBruteForce();
         System.out.println(ll.toString(noDupList));
         
 //        ListNode reverseKList = ll.reverseKNodes(2);
