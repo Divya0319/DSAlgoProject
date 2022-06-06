@@ -536,6 +536,37 @@ public class LinkedList {
     	return head;
     }
     
+    public ListNode rearrangeEvenOdd() {
+    	ListNode even = null, odd = null;
+    	ListNode e = null, o = null;
+    	while(head != null) {
+    		if(head.data % 2 == 0) {
+    			if(even == null) {
+    				even = head;
+    				e = head;
+    			} else {
+    				e.next = head;
+    				e = e.next;
+    			}
+    		} else {
+    			if(odd == null) {
+    				odd = head;
+    				o = head;
+    			} else {
+    				o.next = head;
+    				o = o.next;
+    			}
+    		}
+    		head = head.next;
+    	}
+    	
+    	if(e != null) e.next = odd;
+    	if(o != null) o.next = null;
+    	
+    	if(even != null) return even;
+    	return odd;
+    }
+    
     
     /**
      * @param args
@@ -551,10 +582,10 @@ public class LinkedList {
         ListNode ln2 = new ListNode(6);
         ll.insertAtEnd(ln2);
         System.out.println(ll.toString());
-        ListNode ln3 = new ListNode(6);
+        ListNode ln3 = new ListNode(7);
         ll.insertAtEnd(ln3);
         System.out.println(ll.toString());
-        ListNode ln4 = new ListNode(2);
+        ListNode ln4 = new ListNode(3);
         ll.insertAtEnd(ln4);
         System.out.println(ll.toString());
         ListNode ln5 = new ListNode(2);
@@ -576,7 +607,7 @@ public class LinkedList {
 //        l2.insertAtEnd(lnn3);
 //        System.out.println(l2.toString());
         
-        ListNode noDupList = ll.removeDupBruteForce();
+        ListNode noDupList = ll.rearrangeEvenOdd();
         System.out.println(ll.toString(noDupList));
         
 //        ListNode reverseKList = ll.reverseKNodes(2);
