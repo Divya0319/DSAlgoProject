@@ -567,6 +567,25 @@ public class LinkedList {
     	return odd;
     }
     
+    public ListNode commonElement(ListNode l1, ListNode l2) {
+    	ListNode temp = new ListNode(0);
+    	ListNode head = temp;
+    	while(l1 != null && l2 != null) {
+    		if(l1.data == l2.data) {
+    			head.next = new ListNode(l1.data);
+    			l1 = l1.next;
+    			l2 = l2.next;
+    			head = head.next;
+    		} else if(l1.data > l2.data) {
+    			l2 = l2.next;
+    		} else {
+    			l1 = l1.next;
+    		}
+    	}
+    	
+    	return temp.next;
+    }
+    
     
     /**
      * @param args
@@ -576,38 +595,38 @@ public class LinkedList {
      */
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
-        ListNode ln1 = new ListNode(6);
+        ListNode ln1 = new ListNode(1);
         ll.insertAtBegin(ln1);
         System.out.println(ll.toString());
-        ListNode ln2 = new ListNode(6);
+        ListNode ln2 = new ListNode(3);
         ll.insertAtEnd(ln2);
         System.out.println(ll.toString());
-        ListNode ln3 = new ListNode(7);
+        ListNode ln3 = new ListNode(4);
         ll.insertAtEnd(ln3);
         System.out.println(ll.toString());
-        ListNode ln4 = new ListNode(3);
+        ListNode ln4 = new ListNode(6);
         ll.insertAtEnd(ln4);
         System.out.println(ll.toString());
-        ListNode ln5 = new ListNode(2);
+        ListNode ln5 = new ListNode(7);
         ll.insertAtEnd(ln5);
         System.out.println(ll.toString());
-        ListNode ln6 = new ListNode(1);
+        ListNode ln6 = new ListNode(9);
         ll.insertAtEnd(ln6);
         System.out.println(ll.toString());
         
         
-//        LinkedList l2 = new LinkedList();
-//        ListNode lnn1 = new ListNode(6);
-//        l2.insertAtBegin(lnn1);
-//        System.out.println(l2.toString());
-//        ListNode lnn2 = new ListNode(5);
-//        l2.insertAtEnd(lnn2);
-//        System.out.println(l2.toString());
-//        ListNode lnn3 = new ListNode(4);
-//        l2.insertAtEnd(lnn3);
-//        System.out.println(l2.toString());
+        LinkedList l2 = new LinkedList();
+        ListNode lnn1 = new ListNode(4);
+        l2.insertAtBegin(lnn1);
+        System.out.println(l2.toString());
+        ListNode lnn2 = new ListNode(5);
+        l2.insertAtEnd(lnn2);
+        System.out.println(l2.toString());
+        ListNode lnn3 = new ListNode(6);
+        l2.insertAtEnd(lnn3);
+        System.out.println(l2.toString());
         
-        ListNode noDupList = ll.rearrangeEvenOdd();
+        ListNode noDupList = ll.commonElement(ll.head, l2.head);
         System.out.println(ll.toString(noDupList));
         
 //        ListNode reverseKList = ll.reverseKNodes(2);
