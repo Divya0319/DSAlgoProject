@@ -36,5 +36,33 @@ public class StackUsingLinkedList {
 		length = 0;
 		top = null;
 	}
+	
+	public void push(int data) {
+		ListNode temp = new ListNode(data);
+		temp.next = top;
+		temp = top;
+		length++;
+	}
+	
+	
+	public static void main(String[] args) {
+		StackUsingLinkedList stack = new StackUsingLinkedList();
+		try {
+			stack.push(7);
+			stack.push(9);
+			stack.push(4);
+			stack.push(34);
+			stack.push(6);
+			stack.push(3);
+//			stack.pop();
+//			stack.pop();
+//			stack.pop();
+//			stack.pop();
+
+//			System.out.println("Top: " + stack.top());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
