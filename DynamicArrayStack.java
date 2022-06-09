@@ -66,8 +66,8 @@ public class DynamicArrayStack {
 	
 	private void shrink() {
 		int length = size();
-		if(length<=(capacity / 4)) {
-			capacity = capacity / 2;
+		if(length<=(capacity >> 2)) {
+			capacity = capacity >> 1;
 			int newStack[]  = new int[capacity];
 			System.arraycopy(stackRep, 0, newStack, 0, length);
 			stackRep = newStack;
