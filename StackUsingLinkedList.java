@@ -1,0 +1,40 @@
+package com.dsalgoproblems.javaproblems;
+
+public class StackUsingLinkedList {
+	
+	class ListNode {
+		private int data;
+		private ListNode next;
+		
+		ListNode(int data) {
+			this.data = data;
+			this.next = null;
+		}
+
+		public int getData() {
+			return data;
+		}
+
+		public void setData(int data) {
+			this.data = data;
+		}
+
+		public ListNode getNext() {
+			return next;
+		}
+
+		public void setNext(ListNode next) {
+			this.next = next;
+		}
+		
+	}
+	
+	private int length;
+	private ListNode top;
+	
+	public StackUsingLinkedList() {
+		length = 0;
+		top = null;
+	}
+
+}
