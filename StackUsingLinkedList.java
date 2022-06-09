@@ -81,7 +81,6 @@ public class StackUsingLinkedList {
 		return result;
 	}
 	
-	
 	public static void main(String[] args) {
 		StackUsingLinkedList stack = new StackUsingLinkedList();
 		try {
@@ -106,7 +105,8 @@ public class StackUsingLinkedList {
 			stack.pop();
 			System.out.println(stack.toString());
 
-			System.out.println("Top: " + stack.peek());
+			System.out.println("Top: " + stack.top());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
