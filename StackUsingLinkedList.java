@@ -1,6 +1,7 @@
 package com.dsalgoproblems.javaproblems;
 
 import java.util.EmptyStackException;
+import java.util.Stack;
 
 public class StackUsingLinkedList {
 	
@@ -81,6 +82,47 @@ public class StackUsingLinkedList {
 		return result;
 	}
 	
+	public boolean isValidSymbolPattern(String s) {
+    	Stack<Character> stk = new Stack<>();
+    	if(s == null || s.length() == 0) {
+    		return true;
+    	}
+    	
+    	for(int i = 0; i < s.length(); i++) {
+    		if(s.charAt(i) == ')') {
+    			if(!stk.isEmpty() && stk.peek() == '(') {
+    				stk.pop();
+    			}
+    			else {
+    				return false;
+    			}
+    		} else if(s.charAt(i) == ']') {
+    			if(!stk.isEmpty() && stk.peek() == '[') {
+    				stk.pop();
+    			}
+    			else {
+    				return false;
+    			}
+    		} else if(s.charAt(i) == '}') {
+    			if(!stk.isEmpty() && stk.peek() == '{') {
+    				stk.pop();
+    			}
+    			else {
+    				return false;
+    			}
+    		} else {
+    			stk.push(s.charAt(i));
+    		}
+    	}
+    	
+    	if(stk.isEmpty()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+	
+	
 	public static void main(String[] args) {
 		StackUsingLinkedList stack = new StackUsingLinkedList();
 		try {
@@ -105,8 +147,11 @@ public class StackUsingLinkedList {
 			stack.pop();
 			System.out.println(stack.toString());
 
-			System.out.println("Top: " + stack.top());
-
+			System.out.println("Top: " + stack.peek());
+			
+			String s = "[{()}()]";
+	        System.out.println(Boolean.toString(stack.isValidSymbolPattern(s)));
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
