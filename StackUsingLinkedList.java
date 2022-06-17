@@ -89,21 +89,23 @@ public class StackUsingLinkedList {
     	}
     	
     	for(int i = 0; i < s.length(); i++) {
-    		if(s.charAt(i) == ')') {
+    	   char c = s.charAt(i);
+    	   if(c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']') {
+    		if(c == ')') {
     			if(!stk.isEmpty() && stk.peek() == '(') {
     				stk.pop();
     			}
     			else {
     				return false;
     			}
-    		} else if(s.charAt(i) == ']') {
+    		} else if(c == ']') {
     			if(!stk.isEmpty() && stk.peek() == '[') {
     				stk.pop();
     			}
     			else {
     				return false;
     			}
-    		} else if(s.charAt(i) == '}') {
+    		} else if(c == '}') {
     			if(!stk.isEmpty() && stk.peek() == '{') {
     				stk.pop();
     			}
@@ -113,6 +115,7 @@ public class StackUsingLinkedList {
     		} else {
     			stk.push(s.charAt(i));
     		}
+    	  }
     	}
     	
     	if(stk.isEmpty()) {
@@ -149,7 +152,7 @@ public class StackUsingLinkedList {
 
 			System.out.println("Top: " + stack.peek());
 			
-			String s = "[{()}()]";
+			String s = "[(A+B){(C-D)+E}-(A-B)]";
 	        System.out.println(Boolean.toString(stack.isValidSymbolPattern(s)));
 	        
 		} catch (Exception e) {
