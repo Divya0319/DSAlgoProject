@@ -125,6 +125,60 @@ public class StackUsingLinkedList {
     	}
     }
 	
+	public int Prec(char c) {
+		switch(c) 
+		{
+		case '+':
+		case '-':
+			return 1;
+		case '*':
+		case '/':	
+			return 2;
+		case '^':
+			return 3;
+		default:
+			return -1;
+		}
+	}
+	
+	public String infixToPostFix(String exp) {
+		String result = new String("");
+		Stack<Character> stk = new Stack<>();
+		
+		for(int i = 0; i < exp.length(); i++) {
+			char c = exp.charAt(i);
+			
+			if(Character.isLetterOrDigit(c)) {
+				result += c;
+			}
+			else if(c == '(') {
+				stk.push(c);
+			} else if(c == ')') {
+				while(!stk.isEmpty() && stk.peek() != '(') 
+					result += stk.pop();
+				
+					stk.pop();
+			} else {
+				while(!stk.isEmpty() && Prec(c) <= Prec(stk.peek())) {
+					result += stk.pop();
+				}
+				
+				stk.push(c);
+			}
+		}
+		
+		while(!stk.isEmpty()) {
+			if(stk.peek() == '(') {
+				return "Invalid expression";
+			}
+			
+			result += stk.pop();
+		}
+		
+		return result;
+		
+	}
+	
 	
 	public static void main(String[] args) {
 		StackUsingLinkedList stack = new StackUsingLinkedList();
@@ -152,8 +206,9 @@ public class StackUsingLinkedList {
 
 			System.out.println("Top: " + stack.peek());
 			
-			String s = "[(A+B){(C-D)+E}-(A-B)]";
+			String s = "(A^B)(C-D)+E-(A-B)";
 	        System.out.println(Boolean.toString(stack.isValidSymbolPattern(s)));
+	        System.out.println(stack.infixToPostFix(s));
 	        
 		} catch (Exception e) {
 			e.printStackTrace();
