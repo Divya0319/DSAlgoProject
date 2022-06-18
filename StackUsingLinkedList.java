@@ -158,6 +158,8 @@ public class StackUsingLinkedList {
 					result += stk.pop();
 				
 					stk.pop();
+			} else if(c == '^') {
+				stk.push(c);
 			} else {
 				while(!stk.isEmpty() && Prec(c) <= Prec(stk.peek())) {
 					result += stk.pop();
@@ -206,7 +208,7 @@ public class StackUsingLinkedList {
 
 			System.out.println("Top: " + stack.peek());
 			
-			String s = "(A^B)(C-D)+E-(A-B)";
+			String s = "(A+B)-(E+G^Y^H)";
 	        System.out.println(Boolean.toString(stack.isValidSymbolPattern(s)));
 	        System.out.println(stack.infixToPostFix(s));
 	        
