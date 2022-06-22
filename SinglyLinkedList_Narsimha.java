@@ -586,6 +586,45 @@ public class LinkedList {
     	return temp.next;
     }
     
+    public boolean isPalindromeList(ListNode head) {
+    	
+    	if(head == null || head.next == null) return true;
+    	
+    	ListNode slow = head;
+    	ListNode fast = head;
+    	
+    	while(fast != null && fast.next != null) {
+    		slow = slow.next;
+    		fast = fast.next.next;
+    	}
+    	
+    	slow.next = reverseLL(slow.next);
+    	slow = slow.next;
+    	
+    	ListNode dummy = head;
+    	
+    	while(slow != null) {
+    		if(dummy.data != slow.data) return false;
+    		dummy = dummy.next;
+    		slow = slow.next;
+    	}
+    	
+    	return true;
+    }
+    
+    public ListNode reverseLL(ListNode head) {
+    	ListNode pre = null;
+    	ListNode next = null;
+    	while(head != null) {
+    		next = head.next;
+    		head.next = pre;
+    		pre = head;
+    		head = next;
+    	}
+    	
+    	return pre;
+    }
+    
     
     /**
      * @param args
@@ -604,15 +643,17 @@ public class LinkedList {
         ListNode ln3 = new ListNode(4);
         ll.insertAtEnd(ln3);
         System.out.println(ll.toString());
-        ListNode ln4 = new ListNode(6);
+        ListNode ln4 = new ListNode(4);
         ll.insertAtEnd(ln4);
         System.out.println(ll.toString());
-        ListNode ln5 = new ListNode(7);
+        ListNode ln5 = new ListNode(3);
         ll.insertAtEnd(ln5);
         System.out.println(ll.toString());
         ListNode ln6 = new ListNode(9);
         ll.insertAtEnd(ln6);
         System.out.println(ll.toString());
+        
+        System.out.println(ll.isPalindromeList(ll.head));
         
         
         LinkedList l2 = new LinkedList();
