@@ -259,7 +259,7 @@ public class StackUsingLinkedList {
         		
         		optors.pop();
         		
-        	} else if(ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+        	} else if(ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^') {
         		
         		// ch is wanting higher priority operator to solve first
         		while(optors.size() > 0 && optors.peek() != '(' && Prec(ch) <= Prec(optors.peek())) {
