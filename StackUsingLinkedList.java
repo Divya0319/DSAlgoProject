@@ -125,7 +125,7 @@ public class StackUsingLinkedList {
     	}
     }
 	
-	public int Prec(char c) {
+	public static int Prec(char c) {
 		switch(c) 
 		{
 		case '+':
@@ -209,6 +209,23 @@ public class StackUsingLinkedList {
 		return stk.pop();
 	}
 	
+	public int operation(int val1, int val2, char op) {
+		switch(op) {
+		case '-' : return val1-val2;
+		
+		case '+' : return val1+val2;
+		
+		case '*' : return val1*val2;
+		
+		case '/' : return val1/val2;
+		
+		case '^' : return pow(val1, val2);
+		
+		default:
+			return -1;
+		}
+	}
+	
 	public int pow(int val1, int val2) {
 		int result = 1;
 		for(int i = 0; i < val2; i++) {
@@ -216,6 +233,58 @@ public class StackUsingLinkedList {
 		}
 		
 		return result;
+	}
+	
+	public int infixEvaluationIn1Pass(String expr) {
+		Stack<Integer> opnds = new Stack<>();
+        Stack<Character> optors = new Stack<>();
+        
+        for(int i = 0; i < expr.length(); i++) {
+        	char ch = expr.charAt(i);
+        	
+        	if(ch == '(') {
+        		optors.push(ch);
+        		
+        	} else if(Character.isDigit(ch)) {
+        		opnds.push(ch - '0'); //char to int
+        		
+        	} else if(ch == ')') {
+        		while(optors.peek() == '(') {
+        			char optor = optors.pop();
+        			int v2 = opnds.pop();
+        			int v1 = opnds.pop();
+        			
+        			opnds.push(operation(v1, v2, optor));
+        		}
+        		
+        		optors.pop();
+        		
+        	} else if(ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+        		
+        		// ch is wanting higher priority operator to solve first
+        		while(optors.size() > 0 && optors.peek() != '(' && Prec(ch) <= Prec(optors.peek())) {
+        			char optor = optors.pop();
+        			int v2 = opnds.pop();
+        			int v1 = opnds.pop();
+        			
+        			opnds.push(operation(v1, v2, optor));
+        		}
+        		
+        		// ch is pushing itself now
+        		
+        		optors.push(ch);
+        	}
+        }
+        
+        while(optors.size() != 0) {
+			char optor = optors.pop();
+			int v2 = opnds.pop();
+			int v1 = opnds.pop();
+			
+			opnds.push(operation(v1, v2, optor));
+		}
+        
+        return opnds.peek();
 	}
 	
 	
@@ -250,6 +319,9 @@ public class StackUsingLinkedList {
 	        System.out.println(stack.infixToPostFix(s));
 	        String exp = "252^+9-";
 	        System.out.println(stack.evaluatePostFix(exp));
+	        
+	        String expr = "2-3*6";
+	        System.out.println(stack.infixEvaluationIn1Pass(expr));
 
 	        
 		} catch (Exception e) {
