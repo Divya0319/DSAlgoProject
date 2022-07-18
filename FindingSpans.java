@@ -7,7 +7,7 @@ public class FindingSpans {
 	
 	public static void main(String[] args) {
 		int[] inp = new int[] {100,80,60,70,60,75,85};
-		int[] op = findingSpans(inp);
+		int[] op = findingSpansUsingStack(inp);
 		System.out.println(Arrays.toString(op));
 		
 	}
@@ -23,6 +23,26 @@ public class FindingSpans {
 			}
 		}
 		
+		return spans;
+	}
+	
+	public static int[] findingSpansUsingStack(int[] price) {
+		int[] spans = new int[price.length];
+		Stack<Integer> stk = new Stack<>();
+		stk.push(0);
+		for(int i = 0; i < price.length; i++) {
+			while(!stk.isEmpty() && price[stk.peek()] <= price[i]) {
+				stk.pop();
+			}
+			
+			if(stk.isEmpty()) {
+				spans[i] = i+1;
+			} else {
+				spans[i] = i-stk.peek();
+			}
+			
+			stk.push(i);
+		}
 		return spans;
 	}
 
