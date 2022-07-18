@@ -25,25 +25,5 @@ public class FindingSpans {
 		
 		return spans;
 	}
-	
-	public static int[] findingSpansUsingStack(int[] price) {
-		int[] spans = new int[price.length];
-		Stack<Integer> stk = new Stack<>();
-		stk.push(0);
-		for(int i = 0; i < price.length; i++) {
-			while(!stk.isEmpty() && price[stk.peek()] <= price[i]) {
-				stk.pop();
-			}
-			
-			if(stk.isEmpty()) {
-				spans[i] = i+1;
-			} else {
-				spans[i] = i-stk.peek();
-			}
-			
-			stk.push(i);
-		}
-		return spans;
-	}
 
 }
