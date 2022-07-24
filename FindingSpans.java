@@ -7,8 +7,11 @@ public class FindingSpans {
 	
 	public static void main(String[] args) {
 		int[] inp = new int[] {100,80,60,70,60,75,85};
-		int[] op = findingSpansUsingStack(inp);
+		int[] op = findingSpans(inp);
 		System.out.println(Arrays.toString(op));
+		
+		int[] inp2 = new int[] {2,1,5,6,2,3,1};
+		System.out.println("Maximum area = " + largestRectangleArea(inp2));
 		
 	}
 	
@@ -24,6 +27,45 @@ public class FindingSpans {
 		}
 		
 		return spans;
+	}
+	
+	public static int largestRectangleArea(int[] heights) {
+		int n = heights.length;
+		Stack<Integer> st = new Stack<>();
+		
+		int[] leftSmall = new int[n];
+		int[] rightSmall = new int[n];
+		
+		for(int i = 0; i < n; i++) {
+			while(!st.isEmpty() && heights[st.peek()] >= heights[i]) {
+				st.pop();
+			}
+			
+			if(st.isEmpty()) leftSmall[i] = 0;
+			else leftSmall[i] = st.peek() + 1;
+			st.push(i);
+		}
+		
+		//clear the stack to be re-used again
+		while(!st.isEmpty()) st.pop();
+		
+		int maxA = 0;
+		
+		for(int i = n-1; i >= 0; i--) {
+			while(!st.isEmpty() && heights[st.peek()] >= heights[i]) {
+				st.pop();
+			}
+			
+			if(st.isEmpty()) rightSmall[i] = n-1;
+			else rightSmall[i] = st.peek() - 1;
+			st.push(i);
+			
+			maxA = Math.max(maxA, heights[i] * (rightSmall[i] - leftSmall[i] + 1));
+		}
+		
+		return maxA;
+		
+		
 	}
 	
 	public static int[] findingSpansUsingStack(int[] price) {
