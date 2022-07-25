@@ -11,7 +11,7 @@ public class FindingSpans {
 		System.out.println(Arrays.toString(op));
 		
 		int[] inp2 = new int[] {8,6,10,12,1,7,4};
-		System.out.println("Maximum area = " + largestRectAreaInEff(inp2));
+		System.out.println("Maximum area = " + largestRectangleArea(inp2));
 		
 		Stack<Integer> istk = new Stack<>();
 		istk.push(10);
@@ -77,8 +77,8 @@ public class FindingSpans {
 				st.pop();
 			}
 			
-			if(st.isEmpty()) leftSmall[i] = 0;
-			else leftSmall[i] = st.peek() + 1;
+			if(st.isEmpty()) leftSmall[i] = -1;
+			else leftSmall[i] = st.peek();
 			st.push(i);
 		}
 		
@@ -92,11 +92,11 @@ public class FindingSpans {
 				st.pop();
 			}
 			
-			if(st.isEmpty()) rightSmall[i] = n-1;
-			else rightSmall[i] = st.peek() - 1;
+			if(st.isEmpty()) rightSmall[i] = n;
+			else rightSmall[i] = st.peek();
 			st.push(i);
 			
-			maxA = Math.max(maxA, heights[i] * (rightSmall[i] - leftSmall[i] + 1));
+			maxA = Math.max(maxA, heights[i] * (rightSmall[i] - leftSmall[i] - 1));
 		}
 		
 		return maxA;
