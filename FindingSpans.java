@@ -10,8 +10,8 @@ public class FindingSpans {
 		int[] op = findingSpans(inp);
 		System.out.println(Arrays.toString(op));
 		
-		int[] inp2 = new int[] {2,1,5,6,2,3,1};
-		System.out.println("Maximum area = " + largestRectangleArea(inp2));
+		int[] inp2 = new int[] {8,6,10,12,1,7,4};
+		System.out.println("Maximum area = " + largestRectAreaInEff(inp2));
 		
 		Stack<Integer> istk = new Stack<>();
 		istk.push(10);
@@ -43,6 +43,26 @@ public class FindingSpans {
 		}
 		
 		return spans;
+	}
+	
+	public static int largestRectAreaInEff(int[] heights) {
+		int n = heights.length;
+		int maxArea = 0;
+		for(int i = 0; i < n; i++) {
+			int left = i, right = i;
+			while(heights[left] >= heights[i]) {
+				left--;
+				if(left < 0) break;
+			}
+			
+			while(heights[right] >= heights[i]) {
+				right++;
+				if(right > n-1) break;
+			}
+			maxArea = Math.max(maxArea, (right-left-1) * heights[i]);
+		}
+		
+		return maxArea;
 	}
 	
 	public static int largestRectangleArea(int[] heights) {
