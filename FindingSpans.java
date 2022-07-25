@@ -13,6 +13,22 @@ public class FindingSpans {
 		int[] inp2 = new int[] {2,1,5,6,2,3,1};
 		System.out.println("Maximum area = " + largestRectangleArea(inp2));
 		
+		Stack<Integer> istk = new Stack<>();
+		istk.push(10);
+		istk.push(14);
+		istk.push(1);
+		istk.push(8);
+		istk.push(6);
+		istk.push(11);
+		istk.push(9);
+		System.out.println(istk.toString());
+		
+		Stack<Integer> rstk = sortStackUsingTempStack(istk);
+		while(!rstk.isEmpty()) {
+			System.out.print(rstk.pop() + " ");
+		}
+		
+		
 	}
 	
 	public static int[] findingSpans(int[] price) {
@@ -66,6 +82,19 @@ public class FindingSpans {
 		return maxA;
 		
 		
+	}
+	
+	public static Stack<Integer> sortStackUsingTempStack(Stack<Integer> istk) {
+		Stack<Integer> rstk = new Stack<>();
+		while(!istk.isEmpty()) {
+			int tmp = istk.pop();
+			while(!rstk.isEmpty() && rstk.peek() < tmp) {
+				istk.push(rstk.pop());
+			}
+			rstk.push(tmp);
+		}
+		
+		return rstk;
 	}
 	
 	public static int[] findingSpansUsingStack(int[] price) {
