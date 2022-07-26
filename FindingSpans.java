@@ -1,6 +1,7 @@
 package com.dsalgoproblems.javaproblems;
 
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class FindingSpans {
@@ -11,6 +12,10 @@ public class FindingSpans {
 		System.out.println(Arrays.toString(op));
 		
 		int[] inp2 = new int[] {8,6,10,12,1,7,4};
+		for(int i = 0; i < inp2.length; i++) {
+			System.out.print(inp2[i] + " ");
+		}
+		System.out.println();
 		System.out.println("Maximum area = " + largestRectangleArea(inp2));
 		
 		Stack<Integer> istk = new Stack<>();
@@ -27,8 +32,18 @@ public class FindingSpans {
 		while(!rstk.isEmpty()) {
 			System.out.print(rstk.pop() + " ");
 		}
+		System.out.println();
+		Stack<Integer> inp1 = new Stack<>();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter size of stack: ");
+		int n = sc.nextInt();
+		System.out.println("Enter elements:");
+		for(int i = 0; i < n; i++) {
+			inp1.push(sc.nextInt());
+		}
+		sc.close();
 		
-		
+		System.out.println("Pairwise consecutive? " + pairWiseConsecutive(inp1));
 	}
 	
 	public static int[] findingSpans(int[] price) {
@@ -135,6 +150,31 @@ public class FindingSpans {
 			stk.push(i);
 		}
 		return spans;
+	}
+	
+	public static boolean pairWiseConsecutive(Stack<Integer> istk) {
+		Stack<Integer> aux = new Stack<>();
+		while(!istk.isEmpty()) aux.push(istk.pop());
+		
+		boolean result = true;
+		while(aux.size() > 1) {
+			int x = aux.pop();
+			int y = aux.pop();
+			
+			if(Math.abs((x-y)) != 1) {
+				result = false;
+			}
+			
+			istk.push(x);
+			istk.push(y);
+			
+		}
+		
+		if(aux.size() == 1) {
+			istk.push(aux.peek());
+		}
+		
+		return result;
 	}
 
 }
