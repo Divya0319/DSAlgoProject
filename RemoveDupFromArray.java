@@ -1,11 +1,10 @@
 package com.dsalgoproblems.javaproblems;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class RemoveDupFromArray {
+	static int last_removed;
 
 	public static void main(String[] args) {
 		
@@ -19,33 +18,57 @@ public class RemoveDupFromArray {
 		
 		sc.close();
 		
+		
 		System.out.println("Array before: " + Arrays.toString(inp));
-		System.out.println("Array after: " + removeDup(inp));
+		
+		System.out.println("Array after: " + Arrays.toString(remove(inp)));
+
 
 	}
+
 	
-	public static List<Integer> removeDup(int[] inp) {
-		int n = inp.length;
-		ArrayList<Integer> res = new ArrayList<>();
-		int i = 0;
-		while(i < n) {
-			if(i+1 == n) {
-				res.add(inp[i]);
-				break;
-			}
-			if(inp[i] != inp[i+1]) {
-				res.add(inp[i]);
-				i++;
-			}
-			if(i+1 < n && inp[i] == inp[i+1]) {
-				while(i+1 < n && inp[i] == inp[i+1]) {
-					i++;
-				}
-			i++;
-			}
+	public static int[] removeUtil(int[] arr) {
+		
+
+		if(arr.length == 0 || arr.length == 1) {
+			return arr;
 		}
 		
-		return res;
+		if(arr[0] == arr[1]) {
+			last_removed = arr[0];
+			while(arr.length > 1 && arr[0] == arr[1]) {
+				arr = Arrays.copyOfRange(arr, 1, arr.length);
+			}
+			arr = Arrays.copyOfRange(arr, 1, arr.length);
+			return removeUtil(arr);
+		}
+		
+		int[] rem = removeUtil(Arrays.copyOfRange(arr, 1, arr.length));
+		
+		if(rem.length != 0 && rem[0] == arr[0]){
+			last_removed = arr[0];
+			
+			return Arrays.copyOfRange(rem, 1, rem.length);
+		}
+		
+		if(rem.length == 0 && last_removed == arr[0]) {
+			return rem;
+		}
+		
+
+	   int[] result = new int[rem.length + 1];
+	   result[0] = arr[0];
+	   for(int i = 0; i < rem.length; i++) {
+		   result[i+1] = rem[i];
+	   }
+	   
+	   return result;
+		
+	}
+	
+	public static int[] remove(int[] s) {
+		last_removed = -1;
+		return removeUtil(s);
 	}
 
 }
