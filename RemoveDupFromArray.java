@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class RemoveDupFromArray {
-	static int last_removed;
 
 	public static void main(String[] args) {
 		
@@ -21,13 +20,13 @@ public class RemoveDupFromArray {
 		
 		System.out.println("Array before: " + Arrays.toString(inp));
 		
-		System.out.println("Array after: " + Arrays.toString(remove(inp)));
+		System.out.println("Array after: " + Arrays.toString(removeUtil(inp, -1)));
 
 
 	}
 
 	
-	public static int[] removeUtil(int[] arr) {
+	public static int[] removeUtil(int[] arr, int last_removed) {
 		
 
 		if(arr.length == 0 || arr.length == 1) {
@@ -40,10 +39,10 @@ public class RemoveDupFromArray {
 				arr = Arrays.copyOfRange(arr, 1, arr.length);
 			}
 			arr = Arrays.copyOfRange(arr, 1, arr.length);
-			return removeUtil(arr);
+			return removeUtil(arr, last_removed);
 		}
 		
-		int[] rem = removeUtil(Arrays.copyOfRange(arr, 1, arr.length));
+		int[] rem = removeUtil(Arrays.copyOfRange(arr, 1, arr.length), last_removed);
 		
 		if(rem.length != 0 && rem[0] == arr[0]){
 			last_removed = arr[0];
@@ -66,9 +65,4 @@ public class RemoveDupFromArray {
 		
 	}
 	
-	public static int[] remove(int[] s) {
-		last_removed = -1;
-		return removeUtil(s);
-	}
-
 }
