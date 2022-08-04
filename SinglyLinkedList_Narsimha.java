@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import com.dsalgoproblems.javaproblems.LinkedList.ListNode;
+
 public class LinkedList {
     public LinkedList() {
         length = 0;
@@ -720,4 +722,103 @@ public class LinkedList {
 
 
     }
+}
+
+class LinkedQueue {
+	private int length;
+	private ListNode front, rear;
+	private LinkedList ll;
+	
+	//Creates an empty queue
+	public LinkedQueue() {
+		length = 0;
+		front = rear = null;
+		ll = new LinkedList();
+	}
+	
+	//Adds the specified data to rear of the queue
+	public void enQueue(int data) {
+		ListNode node = new ListNode(data);
+		if(isEmpty()) 
+			front = node;
+		else 
+			rear.setNext(node);
+		rear = node;
+		length++;
+		
+	}
+	
+	//Removes the data at the front of the queue and returns a reference to it. Throws an Exception if 
+	// queue is empty
+	public int deQueue() throws Exception {
+		if(isEmpty()) {
+			throw new Exception("Queue is empty. Underflow");
+		}
+		int result = front.getData();
+		front = front.getNext();
+		length--;
+		if(isEmpty()) {
+			rear = null;
+		}
+		return result;
+	}
+	
+	//Returns a reference to the data at the front of the queue.
+	//The data is not removed from the queue. Throws an exception if the queue is empty.
+	public int first() throws Exception {
+		if(isEmpty()) {
+			throw new Exception("Queue is empty.");
+		}
+		return front.getData();
+	}
+	
+	//Returns true if this queue is empty and false otherwise
+	public boolean isEmpty() {
+		return (length == 0);
+	}
+	
+	public int size() {
+		return length;
+	}
+	
+	public String toString() {
+		String result = "[";
+		ListNode current = front;
+		while(current != null) {
+			result = result + current.getData();
+			if(current.getNext() != null) {
+				result += ", ";
+			}
+			current = current.getNext();
+		}
+		
+		return result + "]";
+	}
+	
+	public static void main(String[] args) {
+		try {
+		LinkedQueue lq = new LinkedQueue();
+		lq.enQueue(5);
+		System.out.println(lq.toString());
+		lq.enQueue(6);
+		System.out.println(lq.toString());
+		lq.enQueue(7);
+		System.out.println(lq.toString());
+		lq.enQueue(8);
+		System.out.println(lq.toString());
+		lq.enQueue(9);
+		System.out.println(lq.toString());
+		lq.enQueue(10);
+		System.out.println(lq.toString());
+		lq.deQueue();
+		System.out.println(lq.toString());
+		lq.deQueue();
+		System.out.println(lq.toString());
+		lq.deQueue();
+		System.out.println(lq.toString());
+		
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }
