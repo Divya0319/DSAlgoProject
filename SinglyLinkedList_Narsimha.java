@@ -795,6 +795,19 @@ class LinkedQueue {
 		return result + "]";
 	}
 	
+	public LinkedQueue reverseQueueUsingStack(LinkedQueue queue) throws Exception {
+		Stack<Integer> stk = new Stack<>();
+		while(!queue.isEmpty()) {
+			stk.push(queue.deQueue());
+		}
+		
+		while(!stk.isEmpty()) {
+			queue.enQueue(stk.pop());
+		}
+		
+		return queue;
+	}
+	
 	public static void main(String[] args) {
 		try {
 		LinkedQueue lq = new LinkedQueue();
@@ -810,12 +823,14 @@ class LinkedQueue {
 		System.out.println(lq.toString());
 		lq.enQueue(10);
 		System.out.println(lq.toString());
-		lq.deQueue();
-		System.out.println(lq.toString());
-		lq.deQueue();
-		System.out.println(lq.toString());
-		lq.deQueue();
-		System.out.println(lq.toString());
+//		lq.deQueue();
+//		System.out.println(lq.toString());
+//		lq.deQueue();
+//		System.out.println(lq.toString());
+//		lq.deQueue();
+//		System.out.println(lq.toString());
+		
+		System.out.println(lq.reverseQueueUsingStack(lq).toString());
 		
 		} catch(Exception ex) {
 			ex.printStackTrace();
