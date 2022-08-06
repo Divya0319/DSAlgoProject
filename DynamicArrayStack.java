@@ -24,7 +24,7 @@ public class DynamicArrayStack {
 	}
 	
 	public boolean isEmpty() {
-		return (top < 1);
+		return (top < 0);
 	}
 	
 	public int top() throws Exception {
@@ -40,7 +40,7 @@ public class DynamicArrayStack {
 			expand();
 		}
 		stackRep[++top] = data;
-		System.out.println(toString());
+//		System.out.println(toString());
 	}
 	
 	public int pop() throws Exception {
@@ -51,7 +51,7 @@ public class DynamicArrayStack {
 		data = stackRep[top];
 		stackRep[top--] = 0;
 		shrink();
-		System.out.println(toString());
+//		System.out.println(toString());
 		return data;
 	}
 	
@@ -95,6 +95,13 @@ public class DynamicArrayStack {
 			stack.push(34);
 			stack.push(6);
 			stack.push(3);
+			stack.push(65);
+			stack.push(23);
+			stack.push(89);
+			stack.pop();
+			stack.pop();
+			stack.pop();
+			stack.pop();
 			stack.pop();
 			stack.pop();
 			stack.pop();
@@ -104,6 +111,65 @@ public class DynamicArrayStack {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+}
+
+class QueueUsingTwoStacks {
+	private DynamicArrayStack s1 = new DynamicArrayStack();
+	private DynamicArrayStack s2 = new DynamicArrayStack();
+	
+	public void enQueue(int data) {
+		s1.push(data);
+	}
+	
+	public int deQueue() throws Exception {
+		if(s2.isEmpty()) {
+			while(!s1.isEmpty()) {
+				s2.push(s1.pop());
+			}
+		}
+		
+		return s2.pop();
+	}
+	
+	public String toString() {
+		String result = "[";
+			try {
+				if(s2.isEmpty()) {
+					while(!s1.isEmpty()) {
+						s2.push(s1.pop());
+					}
+					
+				}
+				while(!s2.isEmpty()) {
+					result += s2.pop() + " ";
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		return result + "]";
+	}
+	
+	public static void main(String[] args) {
+		try {
+		QueueUsingTwoStacks quts = new QueueUsingTwoStacks();
+		quts.enQueue(1);
+		quts.enQueue(2);
+		quts.enQueue(3);
+		quts.enQueue(4);
+		quts.enQueue(5);
+		quts.enQueue(6);
+		quts.enQueue(7);
+		quts.enQueue(8);
+		quts.deQueue();
+		quts.deQueue();
+		quts.deQueue();
+		System.out.println(quts.toString());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
