@@ -727,13 +727,11 @@ public class LinkedList {
 class LinkedQueue {
 	private int length;
 	private ListNode front, rear;
-	private LinkedList ll;
 	
 	//Creates an empty queue
 	public LinkedQueue() {
 		length = 0;
 		front = rear = null;
-		ll = new LinkedList();
 	}
 	
 	//Adds the specified data to rear of the queue
@@ -746,6 +744,9 @@ class LinkedQueue {
 		rear = node;
 		length++;
 		
+	}
+	public ListNode getFront() {
+		return front;
 	}
 	
 	//Removes the data at the front of the queue and returns a reference to it. Throws an Exception if 
@@ -834,6 +835,80 @@ class LinkedQueue {
 		
 		} catch(Exception ex) {
 			ex.printStackTrace();
+		}
+	}
+	
+	static class StackWithTwoQueues {
+		private LinkedQueue q1 = new LinkedQueue();
+		private LinkedQueue q2 = new LinkedQueue();
+		public void push(int data) {
+			if(q1.isEmpty()) {
+				q2.enQueue(data);
+			} else {
+				q1.enQueue(data);
+			}
+		}
+		
+		public int pop() throws Exception {
+			int i = 0, size;
+			if(q2.isEmpty()) {
+				size = q1.size();
+				while(i < size - 1) {
+					q2.enQueue(q1.deQueue());
+					i++;
+				}
+				return q1.deQueue();
+			} else {
+				size = q2.size();
+				while(i < size - 1) {
+					q1.enQueue(q2.deQueue());
+					i++;
+				}
+				return q2.deQueue();
+			}
+		}
+		
+		public String toString() {
+			String result = "[";
+			ListNode front;
+			try {
+			if(q1.isEmpty()) 
+				front = q2.getFront();
+			 else 
+				front = q1.getFront();
+				
+			 while(front != null) {
+				result += front.getData() + " ";
+				front = front.getNext();
+			 }
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+			return result + "]";
+		}
+		
+		public static void main(String[] args) {
+			StackWithTwoQueues swtq = new StackWithTwoQueues();
+			try {
+			swtq.push(5);
+			System.out.println(swtq.toString());
+			swtq.push(6);
+			System.out.println(swtq.toString());
+			swtq.push(7);
+			System.out.println(swtq.toString());
+			swtq.push(8);
+			System.out.println(swtq.toString());
+			swtq.push(9);
+			System.out.println(swtq.toString());
+			swtq.push(10);
+			System.out.println(swtq.toString());
+			swtq.push(11);
+			System.out.println(swtq.toString());
+			swtq.pop();
+			System.out.println(swtq.toString());
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 	}
 }
