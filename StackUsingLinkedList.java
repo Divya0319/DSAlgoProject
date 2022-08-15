@@ -3,7 +3,11 @@ package com.dsalgoproblems.javaproblems;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import com.dsalgoproblems.javaproblems.StackUsingLinkedList.ListNode;
+
 public class StackUsingLinkedList {
+	
+	static Stack<Integer> stk = new Stack<>();
 	
 	class ListNode {
 		private int data;
@@ -61,6 +65,14 @@ public class StackUsingLinkedList {
 		if(isEmpty()) throw new EmptyStackException();
 		
 		return top.data;
+	}
+	
+	public ListNode getTop() {
+		return top;
+	}
+	
+	public void setTop(ListNode top) {
+		this.top = top;
 	}
 	
 	public boolean isEmpty() {
@@ -287,6 +299,27 @@ public class StackUsingLinkedList {
         return opnds.peek();
 	}
 	
+	public static void reverse() {
+		if(stk.size() > 0) {
+		int x = stk.pop();
+		reverse();
+		insertAtBottom(x);
+		}
+		
+	}
+	
+	public static void insertAtBottom(int ele) {
+		
+		if(stk.size() == 0) {
+			stk.push(ele);
+		} else {
+			int a = stk.pop();
+			insertAtBottom(ele);
+			stk.push(a);
+		}
+		
+	}
+	
 	
 	public static void main(String[] args) {
 		StackUsingLinkedList stack = new StackUsingLinkedList();
@@ -322,11 +355,145 @@ public class StackUsingLinkedList {
 	        
 	        String expr = "2-3*6";
 	        System.out.println(stack.infixEvaluationIn1Pass(expr));
+	        
+	        stk.push(2);
+	        stk.push(6);
+	        stk.push(4);
+	        stk.push(9);
+	        stk.push(5);
+	        stk.push(1);
+	        
+	        System.out.println("Stack printing begins");
+	        
+	        Stack<Integer> newStack = new Stack<>();
+	        while(!stk.isEmpty()) {
+	        	newStack.push(stk.peek());
+	        	
+	        	System.out.println(newStack.peek());
+	        	stk.pop();
+	        }
+	        
+	        reverse();
+	        System.out.println("Reversing");
+	        
+	        stk = newStack;
+	        
+	        Stack<Integer> bnewStack = new Stack<>();
+	        while(!stk.isEmpty()) {
+	        	bnewStack.push(stk.peek());
+	        	
+	        	System.out.println(bnewStack.peek());
+	        	stk.pop();
+	        }
+	        
 
 	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+}
+
+class QueueUsingTwoStacks {
+	private StackUsingLinkedList s1 = new StackUsingLinkedList();
+	private StackUsingLinkedList s2 = new StackUsingLinkedList();
+	
+	public void enQueue(int data) {
+		s1.push(data);
+	}
+	
+	public int deQueue() throws Exception {
+		int i = 0, size;
+		if(s2.isEmpty()) {
+			size = s1.size();
+			while(i < size - 1) {
+				s2.push(s1.pop());
+				i++;
+			}
+			return s1.pop();
+		} else 
+			return s2.pop();
+	}
+	
+	public String toString() {
+		String result = "";
+			try {
+				if(s2.isEmpty()) {
+//					if(s1.isEmpty()) {
+//						return result;
+//					}
+//					int x = s1.peek();
+//					s1.pop();
+//					toString();
+//					System.out.print(x + " ");
+//					s1.push(x);
+					StackUsingLinkedList tempStack = new StackUsingLinkedList();
+					ListNode top = s1.getTop();
+					while(top != null) {
+						tempStack.push(top.getData());
+						top = top.getNext();
+					}
+					while(!tempStack.isEmpty()) {
+						result += tempStack.pop() + " ";
+					}
+
+					
+				} else {
+					ListNode top1 = s1.getTop();
+					StackUsingLinkedList tempStack = new StackUsingLinkedList();
+					ListNode top2 = s2.getTop();
+					while(top2 != null) {
+						result += top2.getData() + " ";
+						top2 = top2.getNext();
+					}
+					while(top1 != null) {
+						tempStack.push(top1.getData());
+						top1 = top1.getNext();
+					}
+					while(!tempStack.isEmpty()) {
+						result += tempStack.pop() + " ";
+					}
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		try {
+		QueueUsingTwoStacks quts = new QueueUsingTwoStacks();
+		quts.enQueue(1);
+		System.out.println(quts.toString());
+		quts.enQueue(2);
+		System.out.println(quts.toString());
+		quts.enQueue(3);
+		System.out.println(quts.toString());
+		quts.enQueue(4);
+		System.out.println(quts.toString());
+		quts.enQueue(5);
+		System.out.println(quts.toString());
+		quts.deQueue();
+		System.out.println(quts.toString());
+		quts.enQueue(6);
+		System.out.println(quts.toString());
+		quts.deQueue();
+		System.out.println(quts.toString());
+		quts.enQueue(7);
+		System.out.println(quts.toString());
+		quts.enQueue(8);
+		System.out.println(quts.toString());
+		quts.deQueue();
+		System.out.println(quts.toString());
+		quts.deQueue();
+		System.out.println(quts.toString());
+		quts.deQueue();
+		System.out.println(quts.toString());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
