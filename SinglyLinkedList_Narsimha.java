@@ -811,25 +811,39 @@ class LinkedQueue {
 	
 	public boolean checkStackPairwise(Stack<Integer> s) throws Exception {
 		LinkedQueue q = new LinkedQueue();
+		// initialising pairwiseOrdered variable true initially, 
+		// and as soon as any pair comes out to be non-consecutuve, we change it to false
 		boolean pairwiseOrdered = true;
-		while(!s.isEmpty()) {
+		// putting all elements of stack into queue
+		while(!s.isEmpty()) {          
 			q.enQueue(s.pop());
 		}
-		while(!q.isEmpty()) {
+		// putting all elements of queue back to stack by dequeue(it reverses the stack)
+		while(!q.isEmpty()) {         
 			s.push(q.deQueue());
 		}
 		while(!s.isEmpty()) {
-			int n = s.pop();
-			q.enQueue(n);
+			//popping 1st element from stack and storing in variable for comparison
+			int n = s.pop();            
+			//this element is stored in queue 
+			q.enQueue(n);	
+			// below condition comes out false, when there are odd number of elements in stack, 
+			//so we won't do comparison in that case			
 			if(!s.isEmpty()) {
+				// popping 2nd element from stack
 				int m = s.pop();
+				// this element stored in queue as well				
 				q.enQueue(m);
-				if(Math.abs(n-m) != 1) {
-					pairwiseOrdered = false;
+				// checking if 1st and 2nd element differ by 1				
+				if(Math.abs(n-m) != 1) { 
+				 // if not, we simply say that stack is not pairwise ordered, and return false
+					pairwiseOrdered = false; 
 				}
 			}
 		}
-		while(!q.isEmpty()) {
+		
+		// here, we are regenerating the stack by putting all elements back in the order they were initially
+		while(!q.isEmpty()) {			
 			s.push(q.deQueue());
 		}
 		return pairwiseOrdered;
