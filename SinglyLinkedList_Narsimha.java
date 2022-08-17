@@ -809,6 +809,32 @@ class LinkedQueue {
 		return queue;
 	}
 	
+	public boolean checkStackPairwise(Stack<Integer> s) throws Exception {
+		LinkedQueue q = new LinkedQueue();
+		boolean pairwiseOrdered = true;
+		while(!s.isEmpty()) {
+			q.enQueue(s.pop());
+		}
+		while(!q.isEmpty()) {
+			s.push(q.deQueue());
+		}
+		while(!s.isEmpty()) {
+			int n = s.pop();
+			q.enQueue(n);
+			if(!s.isEmpty()) {
+				int m = s.pop();
+				q.enQueue(m);
+				if(Math.abs(n-m) != 1) {
+					pairwiseOrdered = false;
+				}
+			}
+		}
+		while(!q.isEmpty()) {
+			s.push(q.deQueue());
+		}
+		return pairwiseOrdered;
+	}
+	
 	public static void main(String[] args) {
 		try {
 		LinkedQueue lq = new LinkedQueue();
@@ -832,6 +858,20 @@ class LinkedQueue {
 //		System.out.println(lq.toString());
 		
 		System.out.println(lq.reverseQueueUsingStack(lq).toString());
+		Stack<Integer> iStack = new Stack<>();
+		iStack.push(4);
+		iStack.push(5);
+		iStack.push(-2);
+		iStack.push(-3);
+		iStack.push(11);
+		iStack.push(10);
+		iStack.push(5);
+		iStack.push(6);
+		iStack.push(20);
+		
+		System.out.println("Stack:" + iStack.toString());
+		
+		System.out.println("Stack pairwise? " + lq.checkStackPairwise(iStack));
 		
 		} catch(Exception ex) {
 			ex.printStackTrace();
