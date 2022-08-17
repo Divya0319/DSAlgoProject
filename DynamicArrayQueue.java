@@ -1,5 +1,8 @@
 package com.dsalgoproblems.javaproblems;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class DynamicArrayQueue {
 	//Array used to implement queue
 	private int[] queueRep;
@@ -38,7 +41,7 @@ public class DynamicArrayQueue {
 		} else {
 			size--;
 			int data = queueRep[(front % capacity)];
-			queueRep[front] = Integer.MIN_VALUE;
+			queueRep[front] = -1;
 			front = (front + 1) % capacity;
 			shrink();
 			return data;
@@ -91,13 +94,30 @@ public class DynamicArrayQueue {
 		
 	}
 	
+	public void maxEleSlidingWindow(int[] inp, int k) {
+		int j, max;
+		int n = inp.length;
+		for(int i = 0; i <= n-k; i++) {
+			ArrayList<Integer> tempArr = new ArrayList<>();
+			max = inp[i];
+			tempArr.add(inp[i]);
+			for(j = 1; j < k; j++) {
+				tempArr.add(inp[i+j]);
+				if(inp[i+j] > max) {
+					max = inp[i+j];
+				}
+			}
+			System.out.println("Maximum of " + tempArr.toString() + " is " + max);
+		}
+	}
+	
 	//Returns a string representation of the queue as list of elements, with 
 	// the front element at the end: [..., prev, rear]. This method runs in O(n) time.
 	public String toString() {
 		String result = "[";
-		for(int i = 0; i < size; i++) {
-			result += Integer.toString(queueRep[(front + i) % capacity]);
-			if(i < size - 1) {
+		for(int i = 0; i < capacity; i++) {
+			result += Integer.toString(queueRep[i]);
+			if(i < capacity - 1) {
 				result += ", ";
 			}
 			
@@ -141,8 +161,11 @@ public class DynamicArrayQueue {
 		fsaq.enQueue(88);
 		System.out.println(fsaq.toString());
 		fsaq.enQueue(15);
+		System.out.println(fsaq.toString());
 		fsaq.enQueue(16);
+		System.out.println(fsaq.toString());
 		fsaq.enQueue(17);
+		System.out.println(fsaq.toString());
 		fsaq.enQueue(18);
 		System.out.println(fsaq.toString());
 		fsaq.enQueue(19);
@@ -155,6 +178,11 @@ public class DynamicArrayQueue {
 		System.out.println(fsaq.toString());
 		fsaq.enQueue(23);
 		System.out.println(fsaq.toString());
+		System.out.println();
+		
+		int[] inp = new int[] {1,3,-1,-3,5,3,6,7, 18, 4, 16, -2};
+		System.out.println("Input: " + Arrays.toString(inp));
+		fsaq.maxEleSlidingWindow(inp, 3);
 
 	}
 
