@@ -809,7 +809,7 @@ class LinkedQueue {
 		return queue;
 	}
 	
-	public boolean checkStackPairwise(Stack<Integer> s) throws Exception {
+	public boolean checkStackPairwiseConsecutive(Stack<Integer> s) throws Exception {
 		LinkedQueue q = new LinkedQueue();
 		// initialising pairwiseOrdered variable true initially, 
 		// and as soon as any pair comes out to be non-consecutuve, we change it to false
@@ -849,6 +849,31 @@ class LinkedQueue {
 		return pairwiseOrdered;
 	}
 	
+	public LinkedQueue interleavingQueue(LinkedQueue lq) throws Exception {
+		if(lq.size() % 2 != 0) {
+			throw new IllegalArgumentException("Queue must be of even length");
+		}
+		Stack<Integer> stk = new Stack<>();
+		int halfsize = lq.size() / 2;
+		for(int i = 0; i < halfsize; i++) {
+			stk.push(lq.deQueue());
+		}
+		while(!stk.isEmpty()) {
+			lq.enQueue(stk.pop());
+		}
+		for(int i = 0; i < halfsize; i++) {
+			lq.enQueue(lq.deQueue());
+		}
+		for(int i = 0; i < halfsize; i++) {
+			stk.push(lq.deQueue());
+		}
+		while(!stk.isEmpty()) {
+			lq.enQueue(stk.pop());
+			lq.enQueue(lq.deQueue());
+		}
+		return lq;
+	}
+	
 	public static void main(String[] args) {
 		try {
 		LinkedQueue lq = new LinkedQueue();
@@ -885,7 +910,22 @@ class LinkedQueue {
 		
 		System.out.println("Stack:" + iStack.toString());
 		
-		System.out.println("Stack pairwise? " + lq.checkStackPairwise(iStack));
+		System.out.println("Stack pairwise? " + lq.checkStackPairwiseConsecutive(iStack));
+		
+		LinkedQueue lq2 = new LinkedQueue();
+		lq2.enQueue(1);
+		lq2.enQueue(2);
+		lq2.enQueue(3);
+		lq2.enQueue(4);
+		lq2.enQueue(5);
+		lq2.enQueue(6);
+		lq2.enQueue(7);
+		lq2.enQueue(8);
+		lq2.enQueue(9);
+		lq2.enQueue(10);
+		System.out.println("Normal Queue: " + lq2.toString());
+		
+		System.out.println("Interleaved queue: " + lq2.interleavingQueue(lq2));
 		
 		} catch(Exception ex) {
 			ex.printStackTrace();
