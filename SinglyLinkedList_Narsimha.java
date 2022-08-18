@@ -850,25 +850,33 @@ class LinkedQueue {
 	}
 	
 	public LinkedQueue interleavingQueue(LinkedQueue lq) throws Exception {
+		// throw exception when queue length is odd
 		if(lq.size() % 2 != 0) {
 			throw new IllegalArgumentException("Queue must be of even length");
 		}
 		Stack<Integer> stk = new Stack<>();
 		int halfsize = lq.size() / 2;
+		// push first half of queue elements to stack
 		for(int i = 0; i < halfsize; i++) {
 			stk.push(lq.deQueue());
 		}
+		// then enqueue them back to queue, so they get reversed in order
 		while(!stk.isEmpty()) {
 			lq.enQueue(stk.pop());
 		}
+		// wrap around the remaining half elements of queue, at the end
 		for(int i = 0; i < halfsize; i++) {
 			lq.enQueue(lq.deQueue());
 		}
+		// push those first half reversed elements to stack, for final interleaving process
 		for(int i = 0; i < halfsize; i++) {
 			stk.push(lq.deQueue());
 		}
+		// until stack is over
 		while(!stk.isEmpty()) {
+			// enqueue 1 element of stack in queue
 			lq.enQueue(stk.pop());
+			// and front element of queue to back of queue, to perform interleaving
 			lq.enQueue(lq.deQueue());
 		}
 		return lq;
