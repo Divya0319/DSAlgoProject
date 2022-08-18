@@ -875,18 +875,24 @@ class LinkedQueue {
 	}
 	
 	public LinkedQueue reverseQueueFirstKElements(int k, LinkedQueue lq) throws Exception {
+		// throws exception when queue is null or k is greater than queue length
 		if(lq == null || k > lq.size()) {
 			throw new IllegalArgumentException();
 		}
 		
+		// when k is valid
 		else if(k > 0) {
 			Stack<Integer> s = new Stack<>();
+			// push first k elements from queue to stack
 			for(int i = 0; i < k; i++) {
 				s.push(lq.deQueue());
 			}
+			// enqueue those k elements back to queue from stack, so that they get reversed
 			while(!s.isEmpty()) {
 				lq.enQueue(s.pop());
 			}
+			
+			// wrap around the remaining elements of queue, so they come after first k elements
 			
 			for(int i = 0; i < lq.size() - k; i++) {
 				lq.enQueue(lq.deQueue());
