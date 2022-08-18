@@ -109,6 +109,7 @@ public class DynamicArrayQueue {
 				// looping from 2nd element to kth element of current window
 				// and adding that element to ArrayList as well
 				tempArr.add(inp[i+j]);
+				// since i holds the beginning index of the current window, we have to do i+j to progress in window
 				if(inp[i+j] > max) {
 					// updating max value here
 					max = inp[i+j];
