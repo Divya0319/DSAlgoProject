@@ -874,6 +874,28 @@ class LinkedQueue {
 		return lq;
 	}
 	
+	public LinkedQueue reverseQueueFirstKElements(int k, LinkedQueue lq) throws Exception {
+		if(lq == null || k > lq.size()) {
+			throw new IllegalArgumentException();
+		}
+		
+		else if(k > 0) {
+			Stack<Integer> s = new Stack<>();
+			for(int i = 0; i < k; i++) {
+				s.push(lq.deQueue());
+			}
+			while(!s.isEmpty()) {
+				lq.enQueue(s.pop());
+			}
+			
+			for(int i = 0; i < lq.size() - k; i++) {
+				lq.enQueue(lq.deQueue());
+			}
+		}
+		
+		return lq;
+	}
+	
 	public static void main(String[] args) {
 		try {
 		LinkedQueue lq = new LinkedQueue();
@@ -926,6 +948,7 @@ class LinkedQueue {
 		System.out.println("Normal Queue: " + lq2.toString());
 		
 		System.out.println("Interleaved queue: " + lq2.interleavingQueue(lq2));
+		System.out.println("Reverse first k elements of queue: " + lq2.reverseQueueFirstKElements(4, lq2));
 		
 		} catch(Exception ex) {
 			ex.printStackTrace();
