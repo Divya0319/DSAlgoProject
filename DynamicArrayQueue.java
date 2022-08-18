@@ -101,10 +101,10 @@ public class DynamicArrayQueue {
 		for(int i = 0; i <= n-k; i++) {
 			// created an ArrayList to print considered window elements at each step
 			ArrayList<Integer> tempArr = new ArrayList<>();
-			// setting max to first element of input array initially
+			// setting max to first element of current window initially
 			max = inp[i];
 			// also adding this first element to ArrayList
-			tempArr.add(inp[i]);
+			tempArr.add(max);
 			for(j = 1; j < k; j++) {
 				// looping from 2nd element to kth element of current window
 				// and adding that element to ArrayList as well
