@@ -1,7 +1,9 @@
 package com.dsalgoproblems.javaproblems;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 
 public class DynamicArrayQueue {
 	//Array used to implement queue
@@ -101,10 +103,10 @@ public class DynamicArrayQueue {
 		for(int i = 0; i <= n-k; i++) {
 			// created an ArrayList to print considered window elements at each step
 			ArrayList<Integer> tempArr = new ArrayList<>();
-			// setting max to first element of current window initially
+			// setting max to first element of input array initially
 			max = inp[i];
 			// also adding this first element to ArrayList
-			tempArr.add(max);
+			tempArr.add(inp[i]);
 			for(j = 1; j < k; j++) {
 				// looping from 2nd element to kth element of current window
 				// and adding that element to ArrayList as well
@@ -118,6 +120,31 @@ public class DynamicArrayQueue {
 			// Printing maximum of current window
 			System.out.println("Maximum of " + tempArr.toString() + " is " + max);
 		}
+	}
+	
+	public int[] maxEleSlidingWindowOptimised(int[] inp, int k) {
+		
+		int n = inp.length;
+		int[] r = new int[n-k+1];
+		Deque<Integer> dq = new ArrayDeque<>();
+		int ri = 0;
+		for(int i = 0; i < inp.length; i++) {
+			if(!dq.isEmpty() && dq.peek() == i - k) {
+				dq.poll();
+			}
+		
+			while(!dq.isEmpty() && inp[dq.peekLast()] < inp[i]) {
+				dq.pollLast();
+			}
+			
+			dq.offer(i);
+			if(i >= k - 1) {
+				r[ri++] = inp[dq.peek()];
+			}
+		
+		}
+		return r;
+		
 	}
 	
 	//Returns a string representation of the queue as list of elements, with 
@@ -192,6 +219,13 @@ public class DynamicArrayQueue {
 		int[] inp = new int[] {1,3,-1,-3,5,3,6,7, 18, 4, 16, -2};
 		System.out.println("Input: " + Arrays.toString(inp));
 		fsaq.maxEleSlidingWindow(inp, 3);
+		
+		int[] inp2 = new int[] {1,3,-1,-3,5,3,6,7, 18, 4, 16, -2};
+		System.out.println("Input: " + Arrays.toString(inp2));
+		int[] res = fsaq.maxEleSlidingWindowOptimised(inp, 3);
+		for(int i = 0; i < res.length; i++) {
+			System.out.print(res[i] + " ");
+		}
 
 	}
 
