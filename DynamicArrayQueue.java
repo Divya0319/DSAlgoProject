@@ -123,26 +123,64 @@ public class DynamicArrayQueue {
 	}
 	
 	public int[] maxEleSlidingWindowOptimised(int[] inp, int k) {
-		
 		int n = inp.length;
-		int[] r = new int[n-k+1];
-		Deque<Integer> dq = new ArrayDeque<>();
-		int ri = 0;
-		for(int i = 0; i < inp.length; i++) {
-			if(!dq.isEmpty() && dq.peek() == i - k) {
-				dq.poll();
-			}
 		
-			while(!dq.isEmpty() && inp[dq.peekLast()] < inp[i]) {
-				dq.pollLast();
+		int ri = 0;
+		int r[] = new int[n-k+1];
+		
+		Deque<Integer> qi = new ArrayDeque<>();
+		
+		/* Process first k(or first window)
+		 * elements of array
+		 */
+		int i;
+		for(i = 0; i < k; i++) {
+			
+			//For every element, the previous 
+			//smaller elements are useless	so
+			//remove them from qi
+			while(!qi.isEmpty() && inp[i] >= inp[qi.peekLast()]) {
+				
+				// remove from rear
+				qi.removeLast();
 			}
 			
-			dq.offer(i);
-			if(i >= k - 1) {
-				r[ri++] = inp[dq.peek()];
-			}
-		
+			// Add new element at rear of queue
+			qi.addLast(i);
 		}
+		
+		r[ri++] = inp[qi.peek()];
+		
+		
+		//Process rest of elements,
+		//i.e. from inp[k] to inp[n-1]
+		for(; i < n ; ++i) {
+			//The element at the front of queue
+			//is the largest element of previous window,
+			//so print it
+			
+			//Remove the elements
+			//which are out of this window
+			while(!qi.isEmpty() && qi.peek() <= i-k) {
+				qi.removeFirst();
+			}
+			
+			//remove all elements smaller
+			//than the currently being added element
+			//(remove useless elements)
+			while(!qi.isEmpty() && inp[i] >= inp[qi.peekLast()]) {
+				qi.removeLast();
+			}
+			
+			
+			//add current element to rear of qi
+			qi.addLast(i);
+			
+			// Print the maximum element of last window
+			r[ri++] = inp[qi.peek()];
+			
+		}
+		
 		return r;
 		
 	}
