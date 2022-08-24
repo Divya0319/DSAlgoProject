@@ -53,6 +53,15 @@ public class BinaryTree {
 			inOrder(root.right);
 		}
 	}
+	
+	private void PostOrder(BinaryTreeNode root) {
+		if(root != null) {
+			PostOrder(root.left);
+			PostOrder(root.right);
+			System.out.print(root.data + " ");
+
+		}
+	}
 
 	public static void main(String[] args) {
 		
@@ -69,6 +78,8 @@ public class BinaryTree {
 		bt.PreOrder(btn);
 		System.out.println();
 		bt.inOrder(btn);
+		System.out.println();
+		bt.PostOrder(btn);
 
 	}
 
