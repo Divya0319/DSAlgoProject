@@ -53,8 +53,14 @@ public class BinaryTree {
 		Stack<BinaryTreeNode> s = new Stack<>();
 		s.push(root);
 		while(!s.isEmpty()) {
+			// root is popped here bcz, it will be required once just to get its immediate
+			// left and right child and never later
 			BinaryTreeNode tmp = s.pop();
 			res.add(tmp.data);
+			
+			// first right child is pushed, then left child
+			// bcz when loop again starts next time, then
+			// left child will be popped and processed first, then right child
 			if(tmp.getRight() != null) {
 				s.push(tmp.getRight());
 			}
