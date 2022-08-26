@@ -66,6 +66,31 @@ public class BinaryTree {
 		return res;
 	}
 	
+	private ArrayList<Integer> inorderIterative(BinaryTreeNode root) {
+		ArrayList<Integer> res = new ArrayList<>();
+		if(root == null)
+			return res;
+		Stack<BinaryTreeNode> s = new Stack<>();
+		BinaryTreeNode currentNode = root;
+		boolean done = false;
+		while(!done) {
+			if(currentNode != null) {
+				s.push(currentNode);
+				currentNode = currentNode.left;
+			} else {
+				if(s.isEmpty()) {
+					done = true;
+				} else {
+					currentNode = s.pop();
+					res.add(currentNode.data);
+					currentNode = currentNode.right;
+				}
+			}
+		}
+		
+		return res;
+	}
+	
 	private void inOrder(BinaryTreeNode root) {
 		if(root != null) {
 			inOrder(root.left);
@@ -101,6 +126,8 @@ public class BinaryTree {
 		System.out.println(res.toString());
 		bt.inOrder(btn);
 		System.out.println();
+		ArrayList<Integer> res2 = bt.inorderIterative(btn);
+		System.out.println(res2.toString());
 		bt.PostOrder(btn);
 
 	}
