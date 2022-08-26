@@ -91,6 +91,34 @@ public class BinaryTree {
 		return res;
 	}
 	
+	private ArrayList<Integer> postOrderIterative(BinaryTreeNode root) {
+		ArrayList<Integer> res = new ArrayList<>();
+		if(root == null) 
+			return res;
+		Stack<BinaryTreeNode> s = new Stack<>();
+		s.push(root);
+		BinaryTreeNode prev = null;
+		while(!s.isEmpty()) {
+			BinaryTreeNode curr = s.peek();
+			if(prev == null || prev.left == curr || prev.right == curr) {
+				if(curr.left != null) 
+					s.push(curr.left);
+				else if(curr.right != null) {
+					s.push(curr.right);
+				}
+			} else if(curr.left == prev) {
+				if(curr.right != null) {
+					s.push(curr.right);
+				}
+			} else {
+				res.add(curr.data);
+				s.pop();
+			}
+			prev = curr;
+		}
+		return res;
+	}
+	
 	private void inOrder(BinaryTreeNode root) {
 		if(root != null) {
 			inOrder(root.left);
@@ -129,6 +157,8 @@ public class BinaryTree {
 		ArrayList<Integer> res2 = bt.inorderIterative(btn);
 		System.out.println(res2.toString());
 		bt.PostOrder(btn);
+		ArrayList<Integer> res3 = bt.postOrderIterative(btn);
+		System.out.println(res3.toString());
 
 	}
 
