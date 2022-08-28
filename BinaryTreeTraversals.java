@@ -74,17 +74,19 @@ public class BinaryTreeTraversals {
 		if (root == null)
 			return res;
 		Stack<BinaryTreeNode> s = new Stack<>();
-		// setting current as root 
 		BinaryTreeNode currentNode = root;
-		while (currentNode != null || s.size() > 0) {
+		while (true) {
 			while (currentNode != null) {
 				s.push(currentNode);
 				currentNode = currentNode.left;
 			}
-		
-		currentNode = s.pop();
-		res.add(currentNode.data);
-		currentNode = currentNode.right;
+			if (s.isEmpty())
+				break;
+
+			currentNode = s.pop();
+			res.add(currentNode.data);
+			currentNode = currentNode.right;
+
 		}
 
 		return res;
