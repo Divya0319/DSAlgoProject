@@ -139,23 +139,26 @@ public class BinaryTreeTraversals {
 	
 	private ArrayList<Integer> levelOrderTraversal(BinaryTreeNode root) {
 		ArrayList<Integer> res = new ArrayList<>();
-		if(root == null) {
+		if (root == null) {
 			return null;
 		}
-		
+
 		Queue<BinaryTreeNode> q = new java.util.LinkedList<>();
-		q.offer(root);
-		while(!q.isEmpty()) {
-			BinaryTreeNode tmp = q.poll();
-			res.add(tmp.data);
-			if(tmp != null) {
-				if(tmp.left != null) 
-					q.offer(tmp.left);
-				if(tmp.right != null) 
-					q.offer(tmp.right);
-			} 
+		q.add(root);
+		while (!q.isEmpty()) {
+			int size = q.size();
+			while(size-- > 0) {
+			BinaryTreeNode current = q.remove();
+			res.add(current.data);
+			
+			if (current.left != null)
+				q.add(current.left);
+			if (current.right != null)
+				q.add(current.right);
+			
+			}
 		}
-		
+
 		return res;
 	}
 
