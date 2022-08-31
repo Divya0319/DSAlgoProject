@@ -201,6 +201,15 @@ public class BinaryTreeTraversals {
 		
 		return max;
 	}
+	
+	private boolean searchInBinaryTree(BinaryTreeNode root, int target) {
+		if(root == null) 
+			return false;
+		if(root.getData() == target) {
+			return true;
+		}
+		return searchInBinaryTree(root.left, target) || searchInBinaryTree(root.right, target);
+	}
 
 	public static void main(String[] args) {
 		
@@ -231,6 +240,8 @@ public class BinaryTreeTraversals {
 		System.out.println(bt.maxElementRecursive(btn));
 	
 		System.out.println(bt.maxElementIterative(btn));
+		
+		System.out.println(bt.searchInBinaryTree(btn, 9));
 
 	}
 
