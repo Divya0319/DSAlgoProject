@@ -161,6 +161,22 @@ public class BinaryTreeTraversals {
 
 		return res;
 	}
+	
+	private int maxElementRecursive(BinaryTreeNode root) {
+		int maxValue = Integer.MIN_VALUE;
+		if(root != null) {
+			int leftMax = maxElementRecursive(root.left);
+			int rightMax = maxElementRecursive(root.right);
+			if(leftMax > rightMax) 
+				maxValue = leftMax;
+			else
+				maxValue = rightMax;
+			if(root.data > maxValue) 
+				maxValue = root.data;
+		}
+		
+		return maxValue;
+	}
 
 	public static void main(String[] args) {
 		
@@ -187,6 +203,9 @@ public class BinaryTreeTraversals {
 		System.out.println(res3.toString());
 		
 		System.out.println(bt.levelOrderTraversal(btn).toString());
+		
+		System.out.println(bt.maxElementRecursive(btn));
+	
 
 
 	}
