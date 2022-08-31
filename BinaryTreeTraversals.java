@@ -210,6 +210,25 @@ public class BinaryTreeTraversals {
 		}
 		return searchInBinaryTree(root.left, target) || searchInBinaryTree(root.right, target);
 	}
+	
+	private boolean searchInBinaryTreeIterative(BinaryTreeNode root, int target) {
+		if(root == null)
+			return false;
+		Queue<BinaryTreeNode> q = new LinkedList<>();
+		q.add(root);
+		while(!q.isEmpty()) {
+			BinaryTreeNode tmp = q.remove();
+			if(tmp.getData() == target) 
+				return true;
+			if(tmp.left != null) 
+				q.add(tmp.left);
+			if(tmp.right != null) 
+				q.add(tmp.right);
+		}
+		
+		return false;
+		
+	}
 
 	public static void main(String[] args) {
 		
@@ -242,6 +261,8 @@ public class BinaryTreeTraversals {
 		System.out.println(bt.maxElementIterative(btn));
 		
 		System.out.println(bt.searchInBinaryTree(btn, 9));
+		
+		System.out.println(bt.searchInBinaryTreeIterative(btn, 9));
 
 	}
 
