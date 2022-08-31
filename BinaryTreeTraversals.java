@@ -177,6 +177,30 @@ public class BinaryTreeTraversals {
 		
 		return maxValue;
 	}
+	
+	private int maxElementIterative(BinaryTreeNode root) {
+		if(root == null) {
+			return Integer.MIN_VALUE;
+		}
+		
+		int max = Integer.MIN_VALUE;
+		Queue<BinaryTreeNode> q = new LinkedList<>();
+		q.add(root);
+		while(!q.isEmpty()) {
+			BinaryTreeNode tmp = q.remove();
+			if(tmp.getData() > max) {
+				max = tmp.getData();
+			}
+			if(tmp.left != null) {
+				q.add(tmp.left);
+			}
+			if(tmp.right != null) {
+				q.add(tmp.right);
+			}
+		}
+		
+		return max;
+	}
 
 	public static void main(String[] args) {
 		
@@ -206,7 +230,7 @@ public class BinaryTreeTraversals {
 		
 		System.out.println(bt.maxElementRecursive(btn));
 	
-
+		System.out.println(bt.maxElementIterative(btn));
 
 	}
 
