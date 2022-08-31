@@ -229,6 +229,33 @@ public class BinaryTreeTraversals {
 		return false;
 		
 	}
+	
+	private BinaryTreeNode insertInBinaryTreeLevelOrder(BinaryTreeNode root, int data) {
+		if(root == null)
+			return null;
+		Queue<BinaryTreeNode> q = new LinkedList<>();
+		q.add(root);
+		while(!q.isEmpty()) {
+			BinaryTreeNode tmp = q.remove();
+			if(tmp.left != null) {
+				q.add(tmp.left);
+			} else {
+				tmp.left = new BinaryTreeNode(data);
+				System.out.println("Inserted on left of : " + tmp.data);
+				return root;
+			}
+			
+			if(tmp.right != null) {
+				q.add(tmp.right);
+			} else {
+				tmp.right = new BinaryTreeNode(data);
+				System.out.println("Inserted on right of : " + tmp.data);
+				return root;
+			}
+		}
+		
+		return root;
+	}
 
 	public static void main(String[] args) {
 		
@@ -263,6 +290,9 @@ public class BinaryTreeTraversals {
 		System.out.println(bt.searchInBinaryTree(btn, 9));
 		
 		System.out.println(bt.searchInBinaryTreeIterative(btn, 9));
+		
+		BinaryTreeNode newRoot = bt.insertInBinaryTreeLevelOrder(btn, 40);
+		System.out.println(bt.levelOrderTraversal(newRoot));
 
 	}
 
